@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hafrans.bank.member.mapper.YcMemberMapper">
+	
+	<select id="findAll" resultType="com.hafrans.bank.member.beans.domain.YcMember">
+		select 
+		    MEM_ID as "id",
+		    CNAME as "name",
+		    MEM_PASS as "password",
+		    MEM_SEX as "sex",
+		    MEM_BORN as "born",
+		    MEM_MAIL as "mail",
+		    MEM_QUESTION as "question",
+		    MEM_ANSWER as "answer",
+		    REGISTER_TIME as "registerTime",
+		    LAST_TIME as "lastTime",
+		    ISENABLE as "isEnable",
+		    ROLEID as "roleId"
+		from
+		    YC_MEMBER 
+	</select>
+	
+	<select id="findById" parameterType="java.lang.Integer" resultType="com.hafrans.bank.member.beans.domain.YcMember">
+		select 
+		    MEM_ID as "id",
+		    CNAME as "name",
+		    MEM_PASS as "password",
+		    MEM_SEX as "sex",
+		    MEM_BORN as "born",
+		    MEM_MAIL as "mail",
+		    MEM_QUESTION as "question",
+		    MEM_ANSWER as "answer",
+		    REGISTER_TIME as "registerTime",
+		    LAST_TIME as "lastTime",
+		    ISENABLE as "isEnable",
+		    ROLEID as "roleId"
+		from
+		    YC_MEMBER
+		where
+		    MEM_ID = #{id}
+	</select>
+	
+	<select id="findByName" parameterType="java.lang.String" resultType="com.hafrans.bank.member.beans.domain.YcMember">
+		select 
+		    MEM_ID as "id",
+		    CNAME as "name",
+		    MEM_PASS as "password",
+		    MEM_SEX as "sex",
+		    MEM_BORN as "born",
+		    MEM_MAIL as "mail",
+		    MEM_QUESTION as "question",
+		    MEM_ANSWER as "answer",
+		    REGISTER_TIME as "registerTime",
+		    LAST_TIME as "lastTime",
+		    ISENABLE as "isEnable",
+		    ROLEID as "roleId"
+		from
+		    YC_MEMBER
+		where
+		    CNAME = #{name}
+		LIMIT 1
+	</select>
+	
+	<update id="update" parameterType="com.hafrans.bank.member.beans.domain.YcMember">
+		update 
+		    YC_MEMBER 
+		SET 
+		    CNAME = #{name},
+		    MEM_PASS = #{password},
+		    MEM_SEX = #{sex},
+		    MEM_BORN = #{born},
+		    MEM_MAIL = #{mail},
+		    MEM_QUESTION = #{question},
+		    MEM_ANSWER = #{answer},
+		    REGISTER_TIME = #{registerTime},
+		    LAST_TIME = #{lastTime},
+		    ISENABLE = #{isEnable},
+		    ROLEID = #{roleId}
+		WHERE
+		    MEM_ID = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM
+		    YC_MEMBER
+		WHERE
+		    MEM_ID = #{id}
+	</delete>
+	
+	<insert id="create" parameterType="com.hafrans.bank.member.beans.domain.YcMember">
+		INSERT INTO
+		    YC_MEMBER
+	        (CNAME,MEM_PASS,MEM_SEX,MEM_BORN,MEM_MAIL,MEM_QUESTION,MEM_ANSWER,REGISTER_TIME,LAST_TIME,ISENABLE,ROLEID)
+		VALUES
+		    (#{name},#{password},#{sex},#{born},#{mail},#{question},#{answer}, NOW() ,NOW(),#{isEnable},#{roleId})    
+	</insert>
+	
+	<update id="updateLastTimeByid" parameterType="java.lang.Integer">
+		UPDATE
+		    YC_MEMBER
+		SET 
+		    LAST_TIME = NOW()
+	    WHERE 
+	        MEM_ID = #{id}
+	</update>
+	
+	<select id="listPagedMember" parameterType="hashmap" resultType="com.hafrans.bank.member.beans.domain.YcMember">
+		select 
+		    MEM_ID as "id",
+		    CNAME as "name",
+		    MEM_PASS as "password",
+		    MEM_SEX as "sex",
+		    MEM_BORN as "born",
+		    MEM_MAIL as "mail",
+		    MEM_QUESTION as "question",
+		    MEM_ANSWER as "answer",
+		    REGISTER_TIME as "registerTime",
+		    LAST_TIME as "lastTime",
+		    ISENABLE as "isEnable",
+		    ROLEID as "roleId"
+		from
+		    YC_MEMBER
+		LIMIT #{start},#{length}
+	</select>
+	
+	<delete id="deletePatch" parameterType="list">
+		DELETE FROM
+		    YC_MEMBER
+		WHERE
+		    MEM_ID IN 
+		<foreach collection="list" item="id" open="(" close=")" separator=","> 
+			#{id}
+		</foreach>
+	</delete>
+	
+	<update id="enablePatch" parameterType="list">
+		UPDATE  
+			YC_MEMBER 
+		SET 
+			ISENABLE = 'T'
+		WHERE 
+			MEM_ID IN 
+		<foreach collection="list" item="id" open="(" close=")" separator=","> 
+			#{id}
+		</foreach>
+	</update>
+	
+	<update id="disablePatch" parameterType="list">
+		UPDATE  
+			YC_MEMBER 
+		SET 
+			ISENABLE = 'T'
+		WHERE 
+			MEM_ID IN 
+		<foreach collection="list" item="id" open="(" close=")" separator=","> 
+			#{id}
+		</foreach>
+	</update>
+	
+
+</mapper>
