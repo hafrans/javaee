@@ -12,7 +12,7 @@ public class IndexController {
 	@RequestMapping("/index")
 	@ResponseBody
 	public String index(){
-		return "index";
+		return "index2";
 	}
 	
 	
