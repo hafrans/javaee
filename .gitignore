@@ -1,0 +1,10 @@
+#
+# Git Ignore
+# Sep 26 2018
+# @hafrans
+#
+.metadata
+.settings/
+/target
+.classpath
+.tern-project
