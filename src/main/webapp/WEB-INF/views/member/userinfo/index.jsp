@@ -65,7 +65,7 @@
 			<li><a href="#">用户管理</a></li>
 		</ul>
 	</div>
-	<form action="" method="post">
+	<form action="" method="post" id="userinfo" >
 		<div class="formbody">
 			<ul class="seachform">
 				<li><label>用户编号</label><input name="" type="text"
@@ -179,6 +179,23 @@
 
 	<script type="text/javascript">
 		$('.tablelist tbody tr:odd').addClass('odd');
+		
+		function findAllSelected(){
+			let arr = [];
+			let $arr = $("#userinfo input:checked");
+			$arr.map(e => {
+				arr.push($arr[e].value);
+			});
+			return arr;
+		}
+		
+		/**
+			
+		**/
+		function sendForDisable(arr){
+			
+		}
+		
 	</script>
 
 </body>
