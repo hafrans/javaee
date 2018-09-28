@@ -69,6 +69,8 @@ public interface YcMemberService {
 	public int disable(List<Integer> ids);
 	public int enable(List<Integer> ids);
 	
+	
+	public int resetPassword(List<Integer> ids);
 
 	
 	

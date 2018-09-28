@@ -22,15 +22,15 @@
 	}
 	function userOpen() {
 		if (confirm("您确定要启用该用户吗?"))
-			window.close();
+			sendForEnable(findAllSelected());
 	}
 	function userClose() {
 		if (confirm("您确定要禁用该用户吗?"))
-			window.close();
+			sendForDisable(findAllSelected());
 	}
 	function resetPass() {
 		if (confirm("重置密码,您确定要恢复初始密码吗?"))
-			window.close();
+			sendForResetPassword(findAllSelected());
 	}
 </script>
 <script type="text/javascript">
@@ -189,11 +189,70 @@
 			return arr;
 		}
 		
-		/**
-			
-		**/
 		function sendForDisable(arr){
-			
+			$.ajax({
+				url:"${pageContext.request.contextPath}/Member/UserInfo/disable",
+				type:"POST",
+				data:{
+					id:arr
+				},
+				dataType:"json",
+				success:function(data,text,xhr){
+					if(data.status == 1){//成功
+						alert(data.msg);
+						location.reload();
+					}else{
+						alert(data.msg);
+					}
+				},
+				error:function(xhr,text,errThrown){
+					alert("请求异常"+text);
+				}
+			});
+		}
+		
+		function sendForEnable(arr){
+			$.ajax({
+				url:"${pageContext.request.contextPath}/Member/UserInfo/enable",
+				type:"POST",
+				data:{
+					id:arr
+				},
+				dataType:"json",
+				success:function(data,text,xhr){
+					if(data.status == 1){//成功
+						alert(data.msg);
+						location.reload();
+					}else{
+						alert(data.msg);
+					}
+				},
+				error:function(xhr,text,errThrown){
+					alert("请求异常"+text);
+				}
+			});
+		}
+		
+		function sendForResetPassword(arr){
+			$.ajax({
+				url:"${pageContext.request.contextPath}/Member/UserInfo/resetPassword",
+				type:"POST",
+				data:{
+					id:arr
+				},
+				dataType:"json",
+				success:function(data,text,xhr){
+					if(data.status == 1){//成功
+						alert(data.msg);
+						location.reload();
+					}else{
+						alert(data.msg);
+					}
+				},
+				error:function(xhr,text,errThrown){
+					alert("请求异常"+text);
+				}
+			});
 		}
 		
 	</script>

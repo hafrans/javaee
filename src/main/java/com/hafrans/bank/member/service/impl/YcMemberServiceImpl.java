@@ -97,12 +97,26 @@ public class YcMemberServiceImpl implements YcMemberService {
 
 	@Override
 	public int disable(List<Integer> ids) {
+		if(ids == null || ids.size() == 0){
+			return 0;
+		}
 		return ycMemberMapper.disablePatch(ids);
 	}
 
 	@Override
 	public int enable(List<Integer> ids) {
+		if(ids == null || ids.size() == 0){
+			return 0;
+		}
 		return ycMemberMapper.enablePatch(ids);
+	}
+
+	@Override
+	public int resetPassword(List<Integer> ids) {
+		if(ids == null || ids.size() == 0){
+			return 0;
+		}
+		return ycMemberMapper.resetPassword(ids);
 	}
 	
 	

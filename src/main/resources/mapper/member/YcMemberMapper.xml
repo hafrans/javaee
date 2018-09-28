@@ -151,7 +151,19 @@
 		UPDATE  
 			YC_MEMBER 
 		SET 
-			ISENABLE = 'T'
+			ISENABLE = 'F'
+		WHERE 
+			MEM_ID IN 
+		<foreach collection="list" item="id" open="(" close=")" separator=","> 
+			#{id}
+		</foreach>
+	</update>
+	
+	<update id="resetPassword" parameterType="list">
+		UPDATE  
+			YC_MEMBER 
+		SET 
+			MEM_PASS = '123456'
 		WHERE 
 			MEM_ID IN 
 		<foreach collection="list" item="id" open="(" close=")" separator=","> 

@@ -47,6 +47,9 @@ public interface YcMemberMapper {
 	
 	public abstract int disablePatch(List<Integer> id);
 	
+	
+	public abstract int resetPassword(List<Integer> id);
+	
 
 
 }

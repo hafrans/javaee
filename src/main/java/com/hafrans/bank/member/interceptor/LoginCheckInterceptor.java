@@ -42,9 +42,9 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		
 		HttpSession session = arg0.getSession(true);
 		
-		Object obj = session.getAttribute(SessionConstraints.LOGIN_STATUS);
+		Object obj = session.getAttribute(SessionConstraints.LOGIN_ENTITY);
 		
-		if( obj == null || Boolean.valueOf((boolean) obj) == false){
+		if( obj == null){
 			//请求转发
 			arg1.sendRedirect(arg0.getContextPath()+"/Member/login");
 			return false;
