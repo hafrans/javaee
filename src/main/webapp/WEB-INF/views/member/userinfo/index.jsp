@@ -65,6 +65,7 @@
 			<li><a href="#">用户管理</a></li>
 		</ul>
 	</div>
+	<!-- //TODO -->
 	<form action="" method="post" id="userinfo" >
 		<div class="formbody">
 			<ul class="seachform">
@@ -79,7 +80,7 @@
 		<div class="rightinfo">
 			<div class="tools">
 				<ul class="toolbar1">
-					<li><a href="userInfoAdd.html"><span><img
+					<li><a href="${pageContext.request.contextPath}/Member/UserInfo/add"><span><img
 								src="${pageContext.request.contextPath}/static/images/t01.png" /></span>添加</a></li>
 					<li><a href="userInfoUpdate.html"><span><img
 								src="${pageContext.request.contextPath}/static/images/t02.png" /></span>修改</a></li>

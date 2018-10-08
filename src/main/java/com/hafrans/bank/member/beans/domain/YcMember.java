@@ -9,6 +9,10 @@ import java.sql.Timestamp;
  */
 public class YcMember {
 	
+	public static final int ROLE_ADMINISTRATOR = 1; //管理院
+	public static final int ROLE_MANAGER = 2;       //客户经理
+	
+	
 	private int id;
 	private String name;
 	private String password;
