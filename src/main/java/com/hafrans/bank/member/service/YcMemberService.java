@@ -53,22 +53,15 @@ public interface YcMemberService {
 	
 	public int delete(List<Integer> ids);
 
-	
-	
 	public List<YcMember> listAllMember(int count,int page);                                      
 	
 	public List<YcMember> listAllMember();
-	
-	
-	
-	
 	
 	public boolean enable(int id);
 	public boolean disable(int id);
 	
 	public int disable(List<Integer> ids);
 	public int enable(List<Integer> ids);
-	
 	
 	public int resetPassword(List<Integer> ids);
 
