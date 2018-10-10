@@ -36,8 +36,8 @@ $(document).ready(function(){
 	<div class="place">
     <span>位置：</span>
     <ul class="placeul">
-    <li><a href="workMgr.html">工作管理</a></li>
-    <li><a href="workMgrAdd.html">添加</a></li>
+    <li><a href="${pageContext.request.contextPath}/Member/WorkMgr/">工作管理</a></li>
+    <li><a href="${pageContext.request.contextPath}/Member/WorkMgr/add">添加</a></li>
     </ul>
     </div>
     
