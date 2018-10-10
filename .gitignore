@@ -7,5 +7,6 @@
 .settings/
 /target
 /bin
+/WebContent
 .classpath
 .tern-project

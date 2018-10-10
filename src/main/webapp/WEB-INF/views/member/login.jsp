@@ -14,6 +14,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${pageContext.request.contextPath}/static/js/cloud.js" type="text/javascript"></script>
 
 <script language="javascript">
+	
+	if(window.top.location.href != location.href){
+		window.top.location.href = location.href;
+		return;
+	}
+
 	$(function(){
     $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
 	$(window).resize(function(){  

@@ -36,7 +36,7 @@
 	
 	<!-- 配置Mapper的自动扫描机制 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.hafrans.bank.common.mapper;com.hafrans.bank.member.mapper" />
+		<property name="basePackage" value="com.hafrans.bank.*.mapper" />
 	</bean>
 
 	<!-- 配置tx管理器 -->

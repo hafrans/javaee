@@ -63,7 +63,7 @@ $(function(){
 	    </div>
 	    	<ul class="menuson">
 	        <li><cite></cite><a href="manager/regularMeeting.html" target="rightFrame">例会管理</a><i></i></li>
-	        <li><cite></cite><a href="manager/workMgr.html" target="rightFrame">工作管理</a><i></i></li>
+	        <li><cite></cite><a href="${pageContext.request.contextPath}/Member/WorkMgr/" target="rightFrame">工作管理</a><i></i></li>
 	        </ul>    
 	   </dd>
 	   <dd>
