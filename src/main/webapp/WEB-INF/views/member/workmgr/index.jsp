@@ -64,8 +64,8 @@ $(document).ready(function(){
     <div class="rightinfo">
 	    <div class="tools">
 	    	<ul class="toolbar1">
-	        <li><a href="workMgrAdd.html"><span><img src="${pageContext.request.contextPath}/static/images/t01.png" /></span>添加</a></li>
-	        <li><a href="workMgrUpdate.html"><span><img src="${pageContext.request.contextPath}/static/images/t02.png" /></span>修改</a></li>
+	        <li><a href="${pageContext.request.contextPath}/Member/WorkMgr/add"><span><img src="${pageContext.request.contextPath}/static/images/t01.png" /></span>添加</a></li>
+	        <li><a href="${pageContext.request.contextPath}/Member/WorkMgr/update"><span><img src="${pageContext.request.contextPath}/static/images/t02.png" /></span>修改</a></li>
 	        <li><a href="javascript:confirmMsgDel()" ><span><img src="${pageContext.request.contextPath}/static/images/t03.png"/></span>删除</a></li>
 	        </ul>
 	    </div>
