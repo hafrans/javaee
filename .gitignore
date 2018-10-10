@@ -6,5 +6,6 @@
 .metadata
 .settings/
 /target
+/bin
 .classpath
 .tern-project
