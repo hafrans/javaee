@@ -17,7 +17,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	if(window.top.location.href != location.href){
 		window.top.location.href = location.href;
-		return;
 	}
 
 	$(function(){
