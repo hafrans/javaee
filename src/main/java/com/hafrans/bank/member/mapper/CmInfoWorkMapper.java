@@ -21,8 +21,10 @@ public interface CmInfoWorkMapper {
 	
 	public abstract int add(CmInfoWork work);
 	
-	public abstract int update(CmInfoWork work);
+	public abstract int update(CmInfoWork work );
 	
-	public abstract int DeleteById(int id);
+	public abstract int deleteById(int id);
+	
+	public abstract int delete(List<Integer> ids);
 	
 }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hafrans.bank.member.mapper.CmInfoWorkMapper">
+	
+	<resultMap type="com.hafrans.bank.member.beans.domain.CmInfoWork" id="cminfowork">
+		<id property="key" column="CM_KEY" javaType="java.lang.Integer" />
+		<result property="id" column="CM_ID" javaType="java.lang.String"/>
+		<result property="management" column="CM_MANAGEMENT" javaType="java.lang.String"/>
+		<result property="product" column="CM_PRODUCT" javaType="java.lang.String"/>
+		<result property="loan" column="CM_LOAN" javaType="java.lang.String"/>
+		<result property="warning" column="CM_WARNING" javaType="java.lang.String"/>
+		<result property="issue" column="CM_ISSUE" javaType="java.lang.String"/>
+		<result property="workProposal" column="CM_WORK_PROPOSAL" javaType="java.lang.String"/>
+		<result property="date" column="CM_DATE" javaType="java.sql.Date"/>
+	</resultMap>
+	
+	<select id="findAll" resultMap="cminfowork">
+		SELECT
+			*			
+		FROM
+			gzcrm_cminfo_work
+	</select>
+	
+	<select id="findById" parameterType="java.lang.Integer" resultMap="cminfowork">
+		SELECT
+			*
+		FROM
+			gzcrm_cminfo_work
+		WHERE
+			CM_KEY = #{id}
+	</select>
+	
+	<select id="findAllPaged" parameterType="hashmap" resultMap="cminfowork">
+		SELECT
+			* 
+		FROM
+			gzcrm_cminfo_work
+		LIMIT
+			#{start},#{length}
+	</select>
+	
+	<insert id="add" parameterType="com.hafrans.bank.member.beans.domain.CmInfoWork">
+		INSERT INTO
+			gzcrm_cminfo_work
+		(
+			CM_ID,CM_MANAGEMENT,CM_PRODUCT,CM_LOAN,CM_WARNING,CM_ISSUE,CM_WORK_PROPOSAL,CM_DATE
+		)
+		VALUES
+		(
+			#{id},#{management},#{product},#{loan},#{warning},#{issue},#{workProposal},#{date}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.hafrans.bank.member.beans.domain.CmInfoWork">
+		UPDATE
+			gzcrm_cminfo_work
+		SET
+		    CM_ID = #{id},
+		    CM_MANAGEMENT = #{management},
+		    CM_PRODUCT = #{product},
+		    CM_LOAN = #{loan},
+		    CM_WARNING = #{warning},
+		    CM_ISSUE = #{issue},
+		    CM_WORK_PROPOSAL = #{workProposal},
+		    CM_DATE = #{date}
+		WHERE
+		    CM_KEY = #{key}
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM
+			gzcrm_cminfo_work
+		WHERE
+		    CM_KEY = #{id}
+	</delete>
+	
+	<delete id="delete" parameterType="list">
+		DELETE FROM 
+			gzcrm_cminfo_work
+		WHERE
+		    CM_KEY
+		IN
+		<foreach collection="list" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach> 
+	</delete>
+	
+ 
+</mapper>
