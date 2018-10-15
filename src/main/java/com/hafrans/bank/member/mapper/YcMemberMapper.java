@@ -40,7 +40,6 @@ public interface YcMemberMapper {
 	public abstract boolean updateLastTimeByid(int id);
 	
 	
-	
 	public abstract int deletePatch(List<Integer> id);
 	
 	public abstract int enablePatch(List<Integer> id);

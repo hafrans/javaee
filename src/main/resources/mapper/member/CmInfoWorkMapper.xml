@@ -86,6 +86,6 @@
 			#{id}
 		</foreach> 
 	</delete>
-	
+
  
 </mapper>

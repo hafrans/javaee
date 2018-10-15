@@ -24,6 +24,14 @@
 			sendForDelete(findAllSelected());
 		}
 	}
+	function workUpdate(arr){
+		if(arr.length > 1){
+			alert("请选择一个需要修改的项目！");
+			return false;
+		}
+		location.href = "${pageContext.request.contextPath}/Member/WorkMgr/update?id="+arr[0];
+		return true;
+	}
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -76,8 +84,7 @@
 					<li><a
 						href="${pageContext.request.contextPath}/Member/WorkMgr/add"><span><img
 								src="${pageContext.request.contextPath}/static/images/t01.png" /></span>添加</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/Member/WorkMgr/update"><span><img
+					<li><a onclick="workUpdate(findAllSelected())"><span><img
 								src="${pageContext.request.contextPath}/static/images/t02.png" /></span>修改</a></li>
 					<li><a href="javascript:confirmMsgDel()"><span><img
 								src="${pageContext.request.contextPath}/static/images/t03.png" /></span>删除</a></li>

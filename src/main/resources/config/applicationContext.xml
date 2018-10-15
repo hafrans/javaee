@@ -34,6 +34,7 @@
 	<!-- 配置Mapper的自动扫描机制 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.hafrans.bank.*.mapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 
 	<!-- 配置tx管理器 -->

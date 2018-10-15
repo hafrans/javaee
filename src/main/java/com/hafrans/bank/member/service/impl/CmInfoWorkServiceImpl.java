@@ -64,4 +64,10 @@ public class CmInfoWorkServiceImpl implements CmInfoWorkService {
 		return mapper.update(work) == 1;
 	}
 
+	@Override
+	public CmInfoWork find(int id) {
+		
+		return mapper.findById(id);
+	}
+
 }

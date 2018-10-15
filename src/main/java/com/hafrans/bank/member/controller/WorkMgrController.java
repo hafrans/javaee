@@ -1,5 +1,6 @@
 package com.hafrans.bank.member.controller;
 
+import java.security.InvalidParameterException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hafrans.bank.member.beans.domain.CmInfoWork;
 import com.hafrans.bank.member.beans.vo.GenericResultVO;
 import com.hafrans.bank.member.service.CmInfoWorkService;
+import com.hafrans.bank.utils.toolkit.BeansToolkit;
 
 @Controller("memberWorkMgr")
 @RequestMapping("/Member/WorkMgr")
@@ -74,8 +76,35 @@ public class WorkMgrController {
 	
 	
 	@RequestMapping(value="/update",method=RequestMethod.GET)
-	public String update(){
+	public String update(int id,Model model){
+		CmInfoWork work = service.find(id);
+		if(work == null){
+			throw new InvalidParameterException("输入数据有误！");
+		}
+		model.addAttribute("entity", work);
 		return "member/workmgr/update";
+	}
+	
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	public String updateSubmit(CmInfoWork tmp) throws Exception{
+		
+		if(tmp.getKey() == 0){
+			throw new InvalidParameterException("不存在key");
+		}
+		
+		try {
+			CmInfoWork newWork = BeansToolkit.populate(tmp, service.find(tmp.getKey()));
+			System.out.println(newWork);
+			if(!service.update(newWork)){
+				throw new Exception("update failed.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+		
+		return "redirect:/Member/WorkMgr/";
 	}
 	
 	@RequestMapping("/delete")

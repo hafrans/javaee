@@ -16,6 +16,8 @@ public interface CmInfoWorkService {
 	
 	public abstract List<CmInfoWork> findAll();
 	
+	public abstract CmInfoWork find(int id);
+	
 	public abstract boolean deleteOne(CmInfoWork work);
 	
 	public abstract boolean deleteOneById(int id);
