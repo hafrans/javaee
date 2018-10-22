@@ -87,5 +87,20 @@
 		</foreach> 
 	</delete>
 
+	<select id="findByInfo" parameterType="hashmap" resultMap="cminfowork" >
+		SELECT
+		    *
+		FROM
+		    gzcrm_cminfo_work
+		<where>
+			<if test="cmid != null">
+				CM_ID = #{cmid}
+			</if>
+			<if test="cmdate != null">
+				OR CM_DATE = ${cmdate}
+			</if>
+		</where>
+	</select>
+
  
 </mapper>

@@ -13,6 +13,8 @@ import com.hafrans.bank.member.beans.domain.CmInfoWork;
 public interface CmInfoWorkMapper {
 	
 	
+	public abstract List<CmInfoWork> findByInfo(Map<String,String> info);
+	
 	public abstract List<CmInfoWork> findAll();
 	
 	public abstract CmInfoWork findById(int id);

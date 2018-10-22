@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,17 +27,16 @@ import com.hafrans.bank.utils.toolkit.BeansToolkit;
 @Controller("memberWorkMgr")
 @RequestMapping("/Member/WorkMgr")
 public class WorkMgrController {
-	
-	
+
 	@Autowired
 	private CmInfoWorkService service;
-	
+
 	@InitBinder
-	public void initBinder(WebDataBinder binder){
+	public void initBinder(WebDataBinder binder) {
 		binder.addCustomFormatter(new Formatter<java.sql.Date>() {
-			
+
 			private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			
+
 			@Override
 			public String print(Date arg0, Locale arg1) {
 				return sdf.format(arg0);
@@ -44,86 +44,93 @@ public class WorkMgrController {
 
 			@Override
 			public Date parse(String arg0, Locale arg1) throws ParseException {
-					return new java.sql.Date(sdf.parse(arg0).getTime());
+				return new java.sql.Date(sdf.parse(arg0).getTime());
 			}
 		});
 	}
-	
-	
-	@RequestMapping(value={"/index","/"})
-	public String index(Model model){
-		model.addAttribute("list",service.findAll());
+
+	@RequestMapping(value = { "/index", "/" })
+	public String index(Model model, @RequestParam(value = "cmid", required = false) String cmid,
+			@RequestParam(value="",required=false) Date cmdate) {
+		
+		if( cmid != null || cmdate != null){
+			
+			model.addAttribute("list", service.findByInfo(cmid, cmdate));
+			
+		}else{
+			model.addAttribute("list", service.findAll());
+		}
+		
+		
+		
+		
 		return "member/workmgr/index";
 	}
-	
-	@RequestMapping(value="/add",method=RequestMethod.GET)
-	public String add(){
+
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String add() {
 		return "member/workmgr/add";
 	}
-	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResultVO add(CmInfoWork work){
+	public GenericResultVO add(CmInfoWork work) {
 		System.out.println(work);
-		try{
+		try {
 			service.addOne(work);
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new GenericResultVO(0, e.getMessage(), new java.util.Date());
 		}
 		return new GenericResultVO(1, work.toString(), new java.util.Date());
 	}
-	
-	
-	@RequestMapping(value="/update",method=RequestMethod.GET)
-	public String update(int id,Model model){
+
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String update(int id, Model model) {
 		CmInfoWork work = service.find(id);
-		if(work == null){
+		if (work == null) {
 			throw new InvalidParameterException("输入数据有误！");
 		}
 		model.addAttribute("entity", work);
 		return "member/workmgr/update";
 	}
-	
-	@RequestMapping(value="/update",method=RequestMethod.POST)
-	public String updateSubmit(CmInfoWork tmp) throws Exception{
-		
-		if(tmp.getKey() == 0){
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updateSubmit(CmInfoWork tmp) throws Exception {
+
+		if (tmp.getKey() == 0) {
 			throw new InvalidParameterException("不存在key");
 		}
-		
+
 		try {
 			CmInfoWork newWork = BeansToolkit.populate(tmp, service.find(tmp.getKey()));
 			System.out.println(newWork);
-			if(!service.update(newWork)){
+			if (!service.update(newWork)) {
 				throw new Exception("update failed.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-		
-		
+
 		return "redirect:/Member/WorkMgr/";
 	}
-	
+
 	@RequestMapping("/delete")
 	@ResponseBody
-	public GenericResultVO deleteBatch(@RequestParam("id[]") List<Integer> id){
-		
-		try{
-			if(service.delete(id) == id.size()){
-				return new GenericResultVO(1, "删除成功",new  java.util.Date());
-			}else{
-				return new GenericResultVO(0, "删除有部分失败",new  java.util.Date());
+	public GenericResultVO deleteBatch(@RequestParam("id[]") List<Integer> id) {
+
+		try {
+			if (service.delete(id) == id.size()) {
+				return new GenericResultVO(1, "删除成功", new java.util.Date());
+			} else {
+				return new GenericResultVO(0, "删除有部分失败", new java.util.Date());
 			}
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			return new GenericResultVO(0, e.getMessage(), new java.util.Date());
 		}
-		
-		
+
 	}
-	
-	
+
 }

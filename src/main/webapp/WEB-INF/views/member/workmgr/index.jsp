@@ -20,16 +20,16 @@
 	src="${pageContext.request.contextPath}/static/editor/kindeditor.js"></script>
 <script type="text/javascript">
 	function confirmMsgDel() {
-		if (confirm("删除工作记录,您确定要删除吗?")){
+		if (confirm("删除工作记录,您确定要删除吗?")) {
 			sendForDelete(findAllSelected());
 		}
 	}
-	function workUpdate(arr){
-		if(arr.length > 1){
+	function workUpdate(arr) {
+		if (arr.length > 1) {
 			alert("请选择一个需要修改的项目！");
 			return false;
 		}
-		location.href = "${pageContext.request.contextPath}/Member/WorkMgr/update?id="+arr[0];
+		location.href = "${pageContext.request.contextPath}/Member/WorkMgr/update?id=" + arr[0];
 		return true;
 	}
 </script>
@@ -66,12 +66,12 @@
 		</ul>
 	</div>
 
-	<form action="" method="post">
+	<form action="${pageContext.request.contextPath}/Member/WorkMgr/index" method="get">
 		<div class="formbody">
 			<ul class="seachform">
-				<li><label>客户经理编号</label><input name="" type="text"
+				<li><label>客户经理编号</label><input name="cmid" type="text"
 					class="scinput" /></li>
-				<li><label>录入日期</label><input name="" type="text"
+				<li><label>录入日期</label><input name="cmdate" type="date"
 					class="scinput" /></li>
 				<li><label>&nbsp;</label><input name="" type="submit"
 					class="scbtn" value="查询" /></li>
@@ -113,7 +113,8 @@
 						<c:when test="${not(empty(list))}">
 							<c:forEach var="item" items="${list}">
 								<tr>
-									<td id="userinfo"><input name="id" type="checkbox" value="${item.key}" /></td>
+									<td id="userinfo"><input name="id" type="checkbox"
+										value="${item.key}" /></td>
 									<td>${item.date }</td>
 									<td>${item.management }</td>
 									<td>${item.product }</td>
@@ -191,8 +192,8 @@
 
 	<script type="text/javascript">
 		$('.tablelist tbody tr:odd').addClass('odd');
-		
-		function findAllSelected(){
+	
+		function findAllSelected() {
 			let arr = [];
 			let $arr = $("#userinfo input:checked");
 			$arr.map(e => {
@@ -200,31 +201,28 @@
 			});
 			return arr;
 		}
-		
-	    function sendForDelete(arr){
+	
+		function sendForDelete(arr) {
 			$.ajax({
-				url:"${pageContext.request.contextPath}/Member/WorkMgr/delete",
-				type:"POST",
-				data:{
-					id:arr
+				url : "${pageContext.request.contextPath}/Member/WorkMgr/delete",
+				type : "POST",
+				data : {
+					id : arr
 				},
-				dataType:"json",
-				success:function(data,text,xhr){
-					if(data.status == 1){//成功
+				dataType : "json",
+				success : function(data, text, xhr) {
+					if (data.status == 1) { //成功
 						alert(data.msg);
 						location.reload();
-					}else{
+					} else {
 						alert(data.msg);
 					}
 				},
-				error:function(xhr,text,errThrown){
-					alert("请求异常"+text);
+				error : function(xhr, text, errThrown) {
+					alert("请求异常" + text);
 				}
 			});
 		}
-		
-		
-		
 	</script>
 
 </body>

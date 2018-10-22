@@ -1,6 +1,10 @@
 package com.hafrans.bank.member.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +72,16 @@ public class CmInfoWorkServiceImpl implements CmInfoWorkService {
 	public CmInfoWork find(int id) {
 		
 		return mapper.findById(id);
+	}
+
+	@Override
+	public List<CmInfoWork> findByInfo(String id, Date date) {
+		
+		Map<String,String> map = new HashMap<>();
+		map.put("cmid", id);
+		map.put("cmdate", date != null ? new SimpleDateFormat("yyyy-MM-dd").format(date):null);
+
+		return mapper.findByInfo(map);
 	}
 
 }
