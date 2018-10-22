@@ -72,7 +72,7 @@
 				<li><label>客户经理编号</label><input name="cmid" type="text"
 					class="scinput" /></li>
 				<li><label>录入日期</label><input name="cmdate" type="date"
-					class="scinput" /></li>
+					class="scinput" value=""/></li>
 				<li><label>&nbsp;</label><input name="" type="submit"
 					class="scbtn" value="查询" /></li>
 			</ul>
@@ -133,18 +133,6 @@
 							</tr>
 						</c:otherwise>
 					</c:choose>
-
-
-					<tr>
-						<td><input name="" type="checkbox" value="" /></td>
-						<td>2016-7-11</td>
-						<td>新增加一个客户</td>
-						<td>购买基金</td>
-						<td>继续审批</td>
-						<td>低风险</td>
-						<td></td>
-						<td>真诚对待每个客户</td>
-					</tr>
 				</tbody>
 			</table>
 			<div class="pagin">

@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.manager.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Controller;
@@ -20,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hafrans.bank.member.beans.domain.CmInfoWork;
+import com.hafrans.bank.member.beans.domain.YcMember;
 import com.hafrans.bank.member.beans.vo.GenericResultVO;
 import com.hafrans.bank.member.service.CmInfoWorkService;
+import com.hafrans.bank.utils.constraints.SessionConstraints;
 import com.hafrans.bank.utils.toolkit.BeansToolkit;
 
 @Controller("memberWorkMgr")
@@ -74,8 +79,9 @@ public class WorkMgrController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResultVO add(CmInfoWork work) {
+	public GenericResultVO add(CmInfoWork work, HttpSession session) {
 		System.out.println(work);
+		work.setId(String.valueOf(((YcMember)session.getAttribute(SessionConstraints.LOGIN_ENTITY)).getId()));
 		try {
 			service.addOne(work);
 		} catch (Exception e) {

@@ -1,6 +1,6 @@
 package com.hafrans.bank.member.service;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import com.hafrans.bank.member.beans.domain.CmInfoWork;

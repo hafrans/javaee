@@ -1,7 +1,7 @@
 package com.hafrans.bank.member.service.impl;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +67,7 @@ public class CmInfoWorkServiceImpl implements CmInfoWorkService {
 	public boolean update(CmInfoWork work) {
 		return mapper.update(work) == 1;
 	}
-
+ 
 	@Override
 	public CmInfoWork find(int id) {
 		
@@ -78,9 +78,9 @@ public class CmInfoWorkServiceImpl implements CmInfoWorkService {
 	public List<CmInfoWork> findByInfo(String id, Date date) {
 		
 		Map<String,String> map = new HashMap<>();
-		map.put("cmid", id);
+		map.put("cmid", id.contentEquals("") ? null:id);
 		map.put("cmdate", date != null ? new SimpleDateFormat("yyyy-MM-dd").format(date):null);
-
+		//System.out.println(map.get("cmdate"));
 		return mapper.findByInfo(map);
 	}
 

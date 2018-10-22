@@ -97,7 +97,7 @@
 				CM_ID = #{cmid}
 			</if>
 			<if test="cmdate != null">
-				OR CM_DATE = ${cmdate}
+				OR CM_DATE = #{cmdate}
 			</if>
 		</where>
 	</select>
