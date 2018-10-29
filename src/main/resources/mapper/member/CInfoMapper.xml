@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hafrans.bank.member.mapper.CInfoMapper">
+	
+	<resultMap type="com.hafrans.bank.member.beans.domain.CInfo" id="cinfo">
+		<id     property="key"      column="C_KEY"       javaType="int"/>
+		<result property="cmId"     column="C_CM_ID"     javaType="int"/>
+		<result property="ssn"      column="C_SSN"       javaType="java.lang.String" />
+		<result property="name"     column="C_NAME"      javaType="java.lang.String"/>
+		<result property="tel"      column="C_TEL"       javaType="java.lang.String"/>
+		<result property="salary"   column="C_SALARY"    javaType="double"/>
+		<result property="balance"  column="C_BALANCE"   javaType="double"/>
+		<result property="debt"     column="C_DEBT"      javaType="double"/>
+		<result property="business" column="C_BUSINESS"  javaType="java.lang.String"/>
+		<result property="unit"     column="C_UNIT"      javaType="java.lang.String"/>
+		<result property="add"      column="C_ADD"       javaType="java.lang.String"/>
+	</resultMap>
+		
+	
+	<select id="findAll" resultMap="cinfo" >
+		SELECT
+		    *
+		FROM
+		   gzcrm_cinfo
+	</select>
+	
+	<update id="update" parameterType="com.hafrans.bank.member.beans.domain.CInfo">
+		UPDATE
+			gzcrm_cinfo
+		SET 
+			C_CM_ID = #{cmId},
+			C_SSN = #{ssn},
+			C_NAME = #{name},
+			C_TEL = #{tel},
+			C_SALARY = #{salary},
+			C_BALANCE = #{balance},
+			C_DEBT = #{debt},
+			C_BUSINESS = #{business},
+			C_UNIT = #{unit},
+			C_ADD = #{add}
+		WHERE 
+		    C_KEY = #{key}
+	</update>
+	
+	<delete id="delete" parameterType="int" >
+		DELETE FROM 
+		    gzcrm_cinfo
+		WHERE
+			C_KEY = #{key}
+	</delete>
+	
+	<insert id="insert" parameterType="com.hafrans.bank.member.beans.domain.CInfo">
+		INSERT INTO
+		    gzcrm_cinfo
+		(C_CM_ID , C_SSN , C_NAME, C_TEL , C_SALARY, C_BALANCE, C_DEBT, C_BUSINESS, C_UNIT, C_ADD )
+		VALUES
+		(#{cmId},  #{ssn} , #{name}, #{tel}, #{salary}, #{balance}, #{debt} , #{business}, #{unit},#{add} )
+	</insert>
+	
+	<select id="findById" parameterType="int" resultMap="cinfo">
+		SELECT
+		    *
+		FROM
+		    gzcrm_cinfo
+		WHERE
+		    C_KEY = #{id}
+	</select>
+	
+
+
+</mapper>

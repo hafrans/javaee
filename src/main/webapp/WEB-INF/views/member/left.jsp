@@ -43,9 +43,9 @@ $(function(){
 	    <span><img src="${pageContext.request.contextPath}/static/images/leftico01.png" /></span>客户经理信息管理
 	    </div>
 	    	<ul class="menuson">
-	        <li><cite></cite><a href="manager/clientMgr.html" target="rightFrame">客户经理信息综合维护</a><i></i></li>
-	        <li><cite></cite><a href="manager/clientMgrImport.html" target="rightFrame">批量导入</a><i></i></li>
-   			<li><cite></cite><a href="manager/clientMgrInfoOther.html"  target="rightFrame">客户经理辅助信息维护</a><i></i></li>
+	        <li><cite></cite><a href="${pageContext.request.contextPath}/static/manager/clientMgr.html" target="rightFrame">客户经理信息综合维护</a><i></i></li>
+	        <li><cite></cite><a href="${pageContext.request.contextPath}/static/manager/clientMgrImport.html" target="rightFrame">批量导入</a><i></i></li>
+   			<li><cite></cite><a href="${pageContext.request.contextPath}/static/manager/clientMgrInfoOther.html"  target="rightFrame">客户经理辅助信息维护</a><i></i></li>
 	        </ul>    
 	    </dd>
 	   <dd>
@@ -53,8 +53,8 @@ $(function(){
 	    <span><img src="${pageContext.request.contextPath}/static/images/leftico01.png" /></span>营销管理
 	    </div>
 	    	<ul class="menuson">
-	        <li><cite></cite><a href="manager/clientInfo.html" target="rightFrame">客户信息管理</a><i></i></li>
-	        <li><cite></cite><a href="manager/marketRecord.html" target="rightFrame">营销记录管理</a><i></i></li>
+	        <li><cite></cite><a href="${pageContext.request.contextPath}/Member/ClientInfo/index" target="rightFrame">客户信息管理</a><i></i></li>
+	        <li><cite></cite><a href="${pageContext.request.contextPath}/static/manager/marketRecord.html" target="rightFrame">营销记录管理</a><i></i></li>
 	        </ul>    
 	    </dd>
 	   <dd>
@@ -62,7 +62,7 @@ $(function(){
 	    <span><img src="${pageContext.request.contextPath}/static/images/leftico01.png" /></span>日常工作管理
 	    </div>
 	    	<ul class="menuson">
-	        <li><cite></cite><a href="manager/regularMeeting.html" target="rightFrame">例会管理</a><i></i></li>
+	        <li><cite></cite><a href="${pageContext.request.contextPath}/static/manager/regularMeeting.html" target="rightFrame">例会管理</a><i></i></li>
 	        <li><cite></cite><a href="${pageContext.request.contextPath}/Member/WorkMgr/" target="rightFrame">工作管理</a><i></i></li>
 	        </ul>    
 	   </dd>
@@ -71,7 +71,7 @@ $(function(){
 	    <span><img src="${pageContext.request.contextPath}/static/images/leftico01.png" /></span>报表管理
 	    </div>
 	    	<ul class="menuson">
-	        <li><cite></cite><a href="manager/clientMgrStat.html" target="rightFrame">报表管理</a><i></i></li>
+	        <li><cite></cite><a href="${pageContext.request.contextPath}/static/manager/clientMgrStat.html" target="rightFrame">报表管理</a><i></i></li>
 	        </ul>    
 	   </dd>
 	   <dd>
@@ -79,7 +79,7 @@ $(function(){
 	    <span><img src="${pageContext.request.contextPath}/static/images/leftico01.png" /></span>学习园地管理
 	    </div>
 	    	<ul class="menuson">
-	        <li><cite></cite><a href="manager/studyMgr.html" target="rightFrame">学习园地管理</a><i></i></li>
+	        <li><cite></cite><a href="${pageContext.request.contextPath}/static/manager/studyMgr.html" target="rightFrame">学习园地管理</a><i></i></li>
 	        </ul>    
 	   </dd>
 	   <dd>
