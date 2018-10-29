@@ -65,6 +65,8 @@ public class IndexController {
 			model.addAttribute(SessionConstraints.LOGIN_ENTITY, ycMemberMapper.findByName(usr));
 			model.addAttribute(SessionConstraints.LOGIN_STATUS, true);
 			return new LoginResultVO(1, "登陆成功", res.getContextPath() + "/Member/index");
+		case 2:
+			return new LoginResultVO(1, "登陆成功", res.getContextPath() + "/Member/index");
 		default:
 			return new LoginResultVO(9, "未知错误", "");
 		}

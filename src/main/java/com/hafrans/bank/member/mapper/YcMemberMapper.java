@@ -2,6 +2,7 @@ package com.hafrans.bank.member.mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.hafrans.bank.member.beans.domain.YcMember;
 
@@ -20,6 +21,16 @@ public interface YcMemberMapper {
 	public abstract YcMember findById(int id);
 	
 	public abstract YcMember findByName(String name);
+	
+	/**
+	 * Find YcMembers by Info
+	 * Supported Item as follows.
+	 *  id:String  => int
+	 *  name:String => String
+	 * @param info
+	 * @return
+	 */
+	public abstract List<YcMember> findbyInfo(Map<String,String> info);
 	
 	/**
 	 * 分页

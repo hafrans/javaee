@@ -3,7 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hafrans.bank.member.mapper.YcMemberMapper">
-	
+
+
 	<select id="findAll" resultType="com.hafrans.bank.member.beans.domain.YcMember">
 		select 
 		    MEM_ID as "id",
@@ -170,6 +171,34 @@
 			#{id}
 		</foreach>
 	</update>
+
+	<select id="findbyInfo" parameterType="hashmap" resultType="com.hafrans.bank.member.beans.domain.YcMember">
+		select 
+		    MEM_ID as "id",
+		    CNAME as "name",
+		    MEM_PASS as "password",
+		    MEM_SEX as "sex",
+		    MEM_BORN as "born",
+		    MEM_MAIL as "mail",
+		    MEM_QUESTION as "question",
+		    MEM_ANSWER as "answer",
+		    REGISTER_TIME as "registerTime",
+		    LAST_TIME as "lastTime",
+		    ISENABLE as "isEnable",
+		    ROLEID as "roleId"
+		from
+		    YC_MEMBER
+		<where>
+			<if test="id != null">
+				MEM_ID = ${id}
+			</if>
+			<if test="name != null">
+				CNAME LIKE '%${name}%'  
+			</if>
+		</where>
+	</select>
+
+	
 	
 
 </mapper>

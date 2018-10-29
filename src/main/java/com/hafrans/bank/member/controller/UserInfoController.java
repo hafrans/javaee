@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +24,7 @@ import com.hafrans.bank.utils.constraints.SessionConstraints;
 
 @Controller("memberUserInfo")
 @RequestMapping("/Member/UserInfo")
-@SessionAttributes({ SessionConstraints.LOGIN_STATUS, SessionConstraints.LOGIN_ENTITY})
+@SessionAttributes({ SessionConstraints.LOGIN_STATUS, SessionConstraints.LOGIN_ENTITY,"update_entity_id"})
 public class UserInfoController {
 	
 	
@@ -49,9 +50,15 @@ public class UserInfoController {
 	 * @return
 	 */
 	@RequestMapping(value={"","/index"})
-	public String index(@RequestParam(value="page",defaultValue="1") int page, @RequestParam(value="page",defaultValue="25") int count,Model model){
+	public String index(@RequestParam(required=false,value="name")String name, @RequestParam(required=false) String id,@RequestParam(value="page",defaultValue="1") int page, @RequestParam(value="page",defaultValue="25") int count,Model model){
+		List<YcMember> members = null;
+		if(name != null || id != null){
+			members = ycMemberService.findbyInfo(name, id);
+		}else{
+			members = ycMemberService.listAllMember(count, page);
+			
+		}
 		
-		List<YcMember> members = ycMemberService.listAllMember(count, page);
 		model.addAttribute("userlist",  members);
 			
 		return "member/userinfo/index";
@@ -124,5 +131,33 @@ public class UserInfoController {
 		}
 		
 	}
+	
+	@RequestMapping(value="/update",method=RequestMethod.GET)
+	public String update(String id,Model model){
+		
+		YcMember member = ycMemberService.findbyInfo(null, id).get(0);
+		model.addAttribute("entity", member);
+		model.addAttribute("update_entity_id", id);
+		return "member/userinfo/update";
+	}
+	
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@ResponseBody
+	public GenericResultVO updateSumbit(YcMember member,@ModelAttribute("update_entity_id") String id){	
+		if(id == null || member.getId() != Integer.valueOf(id)){
+			return new GenericResultVO(0, "未知错误！",new Date());
+		}
+		try{
+			if(ycMemberService.updateMember(member)){
+				return new GenericResultVO(1, "用户修改成功！",new Date());
+			}else{
+				return new GenericResultVO(0, "修改失败！",new Date());
+			}
+		}catch(Exception e){
+			e.printStackTrace(System.err);
+			return new GenericResultVO(0, "添加失败！"+e.getClass().getSimpleName(),new Date());
+		}
+	}
+	
 	
 }

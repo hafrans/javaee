@@ -34,6 +34,14 @@
 	}
 </script>
 <script type="text/javascript">
+	function workUpdate(arr) {
+		if (arr.length != 1 ) {
+			alert("请选择一个需要修改的项目！");
+			return false;
+		}
+		location.href = "${pageContext.request.contextPath}/Member/UserInfo/update?id=" + arr[0];
+		return true;
+	}
 	$(document).ready(function() {
 		$(".click").click(function() {
 			$(".tip").fadeIn(200);
@@ -66,12 +74,12 @@
 		</ul>
 	</div>
 	<!-- //TODO -->
-	<form action="" method="post" id="userinfo" >
+	<form action="${pageContext.request.contextPath}/Member/UserInfo/index" method="post" id="userinfo" >
 		<div class="formbody">
 			<ul class="seachform">
-				<li><label>用户编号</label><input name="" type="text"
+				<li><label>用户编号</label><input name="id" type="number"
 					class="scinput" /></li>
-				<li><label>姓名</label><input name="" type="text" class="scinput" /></li>
+				<li><label>姓名</label><input name="name" type="text" class="scinput" /></li>
 				<li><label>&nbsp;</label><input name="" type="submit"
 					class="scbtn" value="查询" /></li>
 			</ul>
@@ -82,7 +90,7 @@
 				<ul class="toolbar1">
 					<li><a href="${pageContext.request.contextPath}/Member/UserInfo/add"><span><img
 								src="${pageContext.request.contextPath}/static/images/t01.png" /></span>添加</a></li>
-					<li><a href="userInfoUpdate.html"><span><img
+					<li><a onclick="workUpdate(findAllSelected())"><span><img
 								src="${pageContext.request.contextPath}/static/images/t02.png" /></span>修改</a></li>
 					<li><a href="javascript:confirmMsgDel()"><span><img
 								src="${pageContext.request.contextPath}/static/images/t03.png" /></span>删除</a></li>
@@ -189,6 +197,7 @@
 			});
 			return arr;
 		}
+	
 		
 		function sendForDisable(arr){
 			$.ajax({

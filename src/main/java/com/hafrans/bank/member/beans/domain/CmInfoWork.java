@@ -12,7 +12,7 @@ public class CmInfoWork {
 	public static final String TABLE_PREFIX = "GZCRM";
 	
 	private int    key;
-	private String id;
+	private int id;
 	private String management;
 	private String product;
 	private String loan;
@@ -20,16 +20,28 @@ public class CmInfoWork {
 	private String issue;
 	private String workProposal;
 	private Date   date;
+	
+	////association
+	
+	private YcMember ycmember;
+	
+	
+	public YcMember getYcmember() {
+		return ycmember;
+	}
+	public void setYcmember(YcMember ycmember) {
+		this.ycmember = ycmember;
+	}
 	public int getKey() {
 		return key;
 	}
 	public void setKey(int key) {
 		this.key = key;
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getManagement() {

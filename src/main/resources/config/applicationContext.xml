@@ -23,7 +23,13 @@
 	<!-- 配置 sessionFactory -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:config/mybatis-global-config.xml"></property>
 		<property name="mapperLocations" value="classpath:mapper/**/*.xml" />
+		<property name="plugins">
+			<array>
+				<bean class="com.hafrans.bank.common.interceptor.mybatis.page.PagedIntercepter"></bean>
+			</array>
+		</property>
 	</bean>
 
 	<!-- 配置 sqlSessionTemplate 持久化模板 创建 sqlsession -->

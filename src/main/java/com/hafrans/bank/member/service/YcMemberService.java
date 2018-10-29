@@ -34,8 +34,10 @@ public interface YcMemberService {
 	 * @param member
 	 * @return
 	 * @throws DataIntegrityViolationException
+	 * @throws ReflectiveOperationException 
+	 * @throws IllegalArgumentException 
 	 */
-	public boolean updateMember(YcMember member) throws DataIntegrityViolationException ;
+	public boolean updateMember(YcMember member) throws DataIntegrityViolationException, IllegalArgumentException, ReflectiveOperationException ;
 	
 	/**
 	 * 更新登陆时间
@@ -64,6 +66,9 @@ public interface YcMemberService {
 	public int enable(List<Integer> ids);
 	
 	public int resetPassword(List<Integer> ids);
+	
+	
+	public List<YcMember> findbyInfo(String name,String id);
 
 	
 	

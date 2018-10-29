@@ -84,4 +84,20 @@ public class CmInfoWorkServiceImpl implements CmInfoWorkService {
 		return mapper.findByInfo(map);
 	}
 
+	@Override
+	public List<CmInfoWork> findByInfoLimited(String id, Date date, String limit) {
+		Map<String,String> map = new HashMap<>();
+		map.put("cmid", id.contentEquals("") ? null:id);
+		map.put("cmdate", date != null ? new SimpleDateFormat("yyyy-MM-dd").format(date):null);
+		map.put("limit",limit);
+		//System.out.println(map.get("cmdate"));
+		return mapper.findByInfo(map);
+	}
+
+	@Override
+	public List<CmInfoWork> findByLimited(int limit) {
+		
+		return mapper.findAllLimited(limit);
+	}
+
 }

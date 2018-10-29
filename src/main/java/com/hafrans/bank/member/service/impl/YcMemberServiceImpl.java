@@ -1,7 +1,9 @@
 package com.hafrans.bank.member.service.impl;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.hafrans.bank.member.beans.domain.YcMember;
 import com.hafrans.bank.member.mapper.YcMemberMapper;
 import com.hafrans.bank.member.service.YcMemberService;
+import com.hafrans.bank.utils.toolkit.BeansToolkit;
 import com.hafrans.bank.utils.toolkit.GenericToolkit;
 
 @Service("ycMemberService")
@@ -46,9 +49,15 @@ public class YcMemberServiceImpl implements YcMemberService {
 	}
 
 	@Override
-	public boolean updateMember(YcMember member) throws DataIntegrityViolationException{
+	public boolean updateMember(YcMember member) throws DataIntegrityViolationException,IllegalArgumentException, ReflectiveOperationException{
+		//first poplulate
+		if(member == null){
+			throw new IllegalArgumentException("member 信息注入失败！");
+		}
+		YcMember origin =  this.findbyInfo(null, String.valueOf(member.getId())).get(0);
+		YcMember newMember = BeansToolkit.populate(member, origin);
 		try{
-			return ycMemberMapper.update(member) == 1 ;
+			return ycMemberMapper.update(newMember) == 1 ;
 		}catch(DataIntegrityViolationException e){
 			throw e;
 		}
@@ -117,6 +126,31 @@ public class YcMemberServiceImpl implements YcMemberService {
 			return 0;
 		}
 		return ycMemberMapper.resetPassword(ids);
+	}
+
+	@Override
+	public List<YcMember> findbyInfo(String name, String id) {
+		
+		String processId = null;
+		
+		if(name == null || "".equals(name)){
+			name = null;
+		}
+		
+		try{
+			if(id != null && ! "".equals(id)){
+				processId = String.valueOf(Integer.valueOf(id));
+			}
+		}catch(Exception e){
+			processId = null;
+			//do nothing. let it go.
+		}
+		
+		Map<String,String> map = new HashMap<>();
+		map.put("id", processId);
+		map.put("name",name);
+		
+		return ycMemberMapper.findbyInfo(map);
 	}
 	
 	

@@ -19,6 +19,10 @@ public interface CmInfoWorkService {
 	
 	public abstract List<CmInfoWork> findByInfo(String id,Date date);
 	
+	public abstract List<CmInfoWork> findByLimited(int limit);
+	
+	public abstract List<CmInfoWork> findByInfoLimited(String id,Date date,String limit);
+	
 	public abstract CmInfoWork find(int id);
 	
 	public abstract boolean deleteOne(CmInfoWork work);

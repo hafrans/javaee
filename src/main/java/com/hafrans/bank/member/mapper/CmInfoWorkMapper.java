@@ -19,6 +19,8 @@ public interface CmInfoWorkMapper {
 	
 	public abstract CmInfoWork findById(int id);
 	
+	public abstract List<CmInfoWork> findAllLimited(int id);
+	
 	public abstract List<CmInfoWork> findAllPaged(Map<String,Integer> pageCount);
 	
 	public abstract int add(CmInfoWork work);

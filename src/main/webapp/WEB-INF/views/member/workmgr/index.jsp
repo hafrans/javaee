@@ -25,7 +25,7 @@
 		}
 	}
 	function workUpdate(arr) {
-		if (arr.length > 1) {
+		if (arr.length != 1) {
 			alert("请选择一个需要修改的项目！");
 			return false;
 		}
@@ -70,7 +70,8 @@
 		<div class="formbody">
 			<ul class="seachform">
 				<li><label>客户经理编号</label><input name="cmid" type="text"
-					class="scinput" /></li>
+					class="scinput" 
+					<c:if test='${login_entity.roleId != 1}'>readonly</c:if> /></li>
 				<li><label>录入日期</label><input name="cmdate" type="date"
 					class="scinput" value=""/></li>
 				<li><label>&nbsp;</label><input name="" type="submit"
@@ -100,6 +101,7 @@
 					<tr>
 						<th><input name="" type="checkbox" value="" /></th>
 						<th>记录时间</th>
+						<th>客户经理编号</th>
 						<th>客户维护</th>
 						<th>产品信息</th>
 						<th>货后管理</th>
@@ -116,6 +118,7 @@
 									<td id="userinfo"><input name="id" type="checkbox"
 										value="${item.key}" /></td>
 									<td>${item.date }</td>
+									<td>${item.ycmember.id }</td>
 									<td>${item.management }</td>
 									<td>${item.product }</td>
 									<td>${item.loan }</td>

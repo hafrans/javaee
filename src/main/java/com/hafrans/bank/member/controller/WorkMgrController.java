@@ -9,18 +9,18 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.manager.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.hafrans.bank.member.beans.domain.CmInfoWork;
 import com.hafrans.bank.member.beans.domain.YcMember;
@@ -31,6 +31,7 @@ import com.hafrans.bank.utils.toolkit.BeansToolkit;
 
 @Controller("memberWorkMgr")
 @RequestMapping("/Member/WorkMgr")
+@SessionAttributes({SessionConstraints.LOGIN_ENTITY})
 public class WorkMgrController {
 
 	@Autowired
@@ -56,14 +57,22 @@ public class WorkMgrController {
 
 	@RequestMapping(value = { "/index", "/" })
 	public String index(Model model, @RequestParam(value = "cmid", required = false) String cmid,
-			@RequestParam(value="",required=false) Date cmdate) {
+			@RequestParam(value="",required=false) Date cmdate,@ModelAttribute(value=SessionConstraints.LOGIN_ENTITY) YcMember member) {
 		
 		if( cmid != null || cmdate != null){
 			
-			model.addAttribute("list", service.findByInfo(cmid, cmdate));
+			if(member.getRoleId().contentEquals("1")){
+				model.addAttribute("list", service.findByInfo(cmid, cmdate));
+			}else{
+				model.addAttribute("list", service.findByInfoLimited(cmid, cmdate,member.getId()+""));
+			}
 			
 		}else{
-			model.addAttribute("list", service.findAll());
+			if(member.getRoleId().contentEquals("1")){
+				model.addAttribute("list", service.findAll());
+			}else{
+				model.addAttribute("list", service.findByLimited(member.getId()));
+			}
 		}
 		
 		
@@ -81,10 +90,10 @@ public class WorkMgrController {
 	@ResponseBody
 	public GenericResultVO add(CmInfoWork work, HttpSession session) {
 		System.out.println(work);
-		work.setId(String.valueOf(((YcMember)session.getAttribute(SessionConstraints.LOGIN_ENTITY)).getId()));
+		work.setId(((YcMember)session.getAttribute(SessionConstraints.LOGIN_ENTITY)).getId());
 		try {
 			service.addOne(work);
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			e.printStackTrace();
 			return new GenericResultVO(0, e.getMessage(), new java.util.Date());
 		}
