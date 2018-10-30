@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hafrans.bank.member.service.CInfoService;
 
@@ -37,6 +39,16 @@ public class ClientInfoController {
 	public String index(Model model){
 		model.addAttribute("list", service.findAll());
 		return "member/clientinfo/index";
+	}
+	
+	
+	@RequestMapping(value="/update",method=RequestMethod.GET)
+	public String updateShow(@RequestParam String id){
+		
+		
+		
+		
+		return "member/client/update";
 	}
 	
 	

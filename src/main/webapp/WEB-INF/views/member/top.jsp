@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -37,7 +38,16 @@ $(function(){
     </ul>
      
     <div class="user">
-    <span>欢迎${sessionScope['login_entity'].name}登录！</span>
+    <span>欢迎
+    <c:choose>
+    	<c:when test="${login_entity.roleId == '1' }">
+    		管理员 
+    	</c:when>
+    	<c:otherwise>
+    		客户经理
+    	</c:otherwise>
+    </c:choose>
+    ${sessionScope['login_entity'].name}登录！</span>
     </div>   
     </div>
 

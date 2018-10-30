@@ -97,7 +97,7 @@ public class WorkMgrController {
 			e.printStackTrace();
 			return new GenericResultVO(0, e.getMessage(), new java.util.Date());
 		}
-		return new GenericResultVO(1, work.toString(), new java.util.Date());
+		return new GenericResultVO(1, "添加成功！", new java.util.Date());
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)

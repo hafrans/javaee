@@ -14,6 +14,10 @@ public class CInfo {
 	private String unit;
 	private String add;
 	
+	////////////////////////////
+	
+	
+	////
 	
 	public int getKey() {
 		return key;

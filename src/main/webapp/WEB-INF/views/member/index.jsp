@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
@@ -30,6 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="welinfo">
     <span><img src="${pageContext.request.contextPath}/static/images/sun.png" alt="天气" /></span>
     <b>${sessionScope.login_entity.name }早上好，欢迎访问客户经理信息管理系统</b>
+    <div>现在时间是：<%=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss").format(new Date()) %></div>
     
     </div>
     
