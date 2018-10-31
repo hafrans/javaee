@@ -113,7 +113,7 @@
 				</thead>
 				<thead>
 					<tr>
-						<th><input name="" type="checkbox" value="" /></th>
+						<th><input onchange="javascript:$('.userinfo input[type=checkbox]').attr('checked',this.checked)" name="" type="checkbox" value="" /></th>
 						<th>用户编号</th>
 						<th>姓名</th>
 						<th>状态</th>
@@ -125,7 +125,7 @@
 					<c:choose>
 						<c:when test="${not(empty(userlist))}">
 							<c:forEach items="${userlist}" var="item">
-								<tr>
+								<tr class="userinfo">
 									<td><input name="id" type="checkbox" value="${item.id}" /></td>
 									<td>${item.id }</td>
 									<td>${item.name }</td>

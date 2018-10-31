@@ -40,6 +40,16 @@
 		});
 
 	});
+	
+	
+	function workUpdate(arr) {
+		if (arr.length != 1) {
+			alert("请选择一个需要修改的项目！");
+			return false;
+		}
+		location.href = "${pageContext.request.contextPath}/Member/ClientInfo/update?id=" + arr[0];
+		return true;
+	}
 </script>
 
 
@@ -70,9 +80,9 @@
 		<div class="rightinfo">
 			<div class="tools">
 				<ul class="toolbar1">
-					<li><a href="clientInfoAdd.html"><span><img
+					<li><a href="${pageContext.request.contextPath}/Member/ClientInfo/add"><span><img
 								src="${pageContext.request.contextPath}/static/images/t01.png" /></span>添加</a></li>
-					<li><a href="clientInfoUpdate.html"><span><img
+					<li><a href="javascript:workUpdate(findAllSelected())"><span><img
 								src="${pageContext.request.contextPath}/static/images/t02.png" /></span>修改</a></li>
 					<li><a href="javascript:confirmMsgDel()"><span><img
 								src="${pageContext.request.contextPath}/static/images/t03.png" /></span>删除</a></li>
@@ -86,7 +96,7 @@
 				</thead>
 				<thead>
 					<tr>
-						<th><input name="" type="checkbox" value="" /></th>
+						<th><input name="" type="checkbox" value="" onchange="javascript:$('.userinfo input[type=checkbox]').attr('checked',this.checked)" /></th>
 						<th>姓名</th>
 						<th>身份证号</th>
 						<th>联系方式</th>
@@ -116,7 +126,16 @@
 									<td>${item.unit }</td>
 									<td>${item.add }</td>
 									<td>${item.business }</td>
-									<td>${item.cmId }</td>
+									<td>
+										<c:choose>
+											<c:when test="${item.cm == null}">
+												客户经理不存在
+											</c:when>
+											<c:otherwise>
+												${item.cm.showNo }
+											</c:otherwise>
+										</c:choose>
+									</td>
 								</tr>
 							</c:forEach>
 						</c:when>

@@ -22,16 +22,16 @@ public class CmInfoWork {
 	private Date   date;
 	
 	////association
+	private CmInfo cm;
 	
-	private YcMember ycmember;
 	
-	
-	public YcMember getYcmember() {
-		return ycmember;
+	public CmInfo getCm() {
+		return cm;
 	}
-	public void setYcmember(YcMember ycmember) {
-		this.ycmember = ycmember;
+	public void setCm(CmInfo cm) {
+		this.cm = cm;
 	}
+	
 	public int getKey() {
 		return key;
 	}

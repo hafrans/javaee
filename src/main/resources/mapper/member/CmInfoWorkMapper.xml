@@ -16,8 +16,8 @@
 		<result property="workProposal" column="CM_WORK_PROPOSAL"
 			javaType="java.lang.String" />
 		<result property="date" column="CM_DATE" javaType="java.sql.Date" />
-		<association property="ycmember" column="CM_ID"
-			select="com.hafrans.bank.member.mapper.YcMemberMapper.findById"></association>
+		<association property="cm" column="CM_ID"
+			select="com.hafrans.bank.member.mapper.CmInfoMapper.findById"></association>
 	</resultMap>
 
 	<select id="findAll" resultMap="cminfowork">
@@ -97,12 +97,16 @@
 		SELECT
 		*
 		FROM
-		gzcrm_cminfo_work
+			gzcrm_cminfo_work as d
+		LEFT JOIN
+			gzcrm_cminfo as c
+		ON
+		    d.CM_ID = c.CM_ID
 		<choose>
 			<when test="limit == null">
 				<where>
 					<if test="cmid != null">
-						CM_ID = #{cmid}
+						c.CM_SHOW_NO LIKE '%${cmid}%'
 					</if>
 					<if test="cmdate != null">
 						OR CM_DATE = #{cmdate}
@@ -110,11 +114,11 @@
 				</where>
 			</when>
 			<otherwise>
-				WHERE CM_ID = #{limit} 
+				WHERE d.CM_ID = #{limit} 
 				AND (
 				<trim prefix="" prefixOverrides="OR">
 					<if test="cmid != null">
-						CM_ID = #{cmid}
+						c.CM_SHOW_NO LIKE '%${cmid}%'
 					</if>
 					<if test="cmdate != null">
 						OR CM_DATE = #{cmdate}

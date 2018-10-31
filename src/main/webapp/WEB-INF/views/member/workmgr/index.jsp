@@ -99,7 +99,7 @@
 				</thead>
 				<thead>
 					<tr>
-						<th><input name="" type="checkbox" value="" /></th>
+						<th><input onchange="javascript:$('.userinfo input[type=checkbox]').attr('checked',this.checked)" name="" type="checkbox" value="" /></th>
 						<th>记录时间</th>
 						<th>客户经理编号</th>
 						<th>客户维护</th>
@@ -114,11 +114,20 @@
 					<c:choose>
 						<c:when test="${not(empty(list))}">
 							<c:forEach var="item" items="${list}">
-								<tr>
+								<tr class="userinfo">
 									<td id="userinfo"><input name="id" type="checkbox"
 										value="${item.key}" /></td>
 									<td>${item.date }</td>
-									<td>${item.ycmember.id }</td>
+									<td>
+										<c:choose>
+											<c:when test="${item.cm == null}">
+												客户经理不存在
+											</c:when>
+											<c:otherwise>
+												${item.cm.showNo }
+											</c:otherwise>
+										</c:choose>
+									</td>
 									<td>${item.management }</td>
 									<td>${item.product }</td>
 									<td>${item.loan }</td>

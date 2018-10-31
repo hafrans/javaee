@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.hafrans.bank.member.beans.domain.CInfo;
 import com.hafrans.bank.member.beans.domain.YcMember;
 import com.hafrans.bank.member.beans.formatter.TimeStampFormatter;
 import com.hafrans.bank.member.beans.vo.GenericResultVO;

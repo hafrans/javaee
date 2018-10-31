@@ -42,4 +42,12 @@ public class CInfoServiceImpl implements CInfoService {
 		return mapper.insert(info);
 	}
 
+	@Override
+	public CInfo findByStringId(String id) {
+		if(id == null || "".contentEquals(id) ){
+			return null;
+		}
+		return mapper.findById(Integer.valueOf(id));
+	}
+
 }

@@ -10,6 +10,8 @@ public interface CInfoService {
 	
 	public abstract List<CInfo> findAll();
 	
+	public abstract CInfo findByStringId(String id);
+	
 	public abstract int update(CInfo info) throws DataIntegrityViolationException;
 	
 	public abstract int delete(int id);
