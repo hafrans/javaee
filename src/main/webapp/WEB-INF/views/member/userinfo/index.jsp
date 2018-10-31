@@ -147,7 +147,7 @@
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td class="STYLE4"><div class="message">
-								共<i class="blue">260</i>条记录，当前显示第&nbsp;<i class="blue">1&nbsp;</i>页
+								共<i class="blue">${total }</i>条记录，当前显示第&nbsp;<i class="blue">${current }&nbsp;</i>页,共<i class="blue">${max }</i>页
 							</div></td>
 						<td><table border="0" align="right" cellpadding="0"
 								cellspacing="0">
@@ -264,6 +264,46 @@
 				}
 			});
 		}
+		
+		
+		///page
+		
+		function deletePage(){
+			var search = location.search.slice(1).replace(/(.*)?((?<=&{1}|^)page=\d+&|&{1}page=\d+$)(.*)/,"$1$3");
+			return location.pathname+"?"+search;
+		}
+		
+		function firstPage(){
+			location.href = deletePage()+"&page=1";
+		}
+		
+		function lastPage(){
+			location.href = deletePage()+"&page=${max}";
+		}
+		function priviousPage(){//拼写错误补丁
+			previousPage();
+		}
+		function previousPage(){
+			var cur = ${current};
+			var max = ${max};
+			if(cur == 1){
+				alert("这是第一页！");
+				return false;
+			}
+			
+			location.href = deletePage()+"&page="+(cur-1);
+		}	
+		
+		function nextPage(){
+			var cur = ${current};
+			var max = ${max};
+			if(cur == max){
+				alert("这是最后一页！");
+				return false;
+			}
+			location.href = deletePage()+"&page="+(cur+1);
+		}	
+		///
 		
 	</script>
 

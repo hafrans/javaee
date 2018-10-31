@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.github.pagehelper.PageHelper;
 import com.hafrans.bank.member.beans.domain.CInfo;
 import com.hafrans.bank.member.mapper.CInfoMapper;
 
@@ -26,9 +27,11 @@ public class CInfoTest {
 	@Test
 	public void findAllTest(){
 		if(test){
+			PageHelper.startPage(2, 5);
 			List<CInfo> list = mapper.findAll();
 			for(CInfo client : list){
 				System.out.println(client);
+				System.out.println(client.getCm());
 			}
 		}
 	}

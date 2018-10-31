@@ -1,6 +1,9 @@
 package com.hafrans.bank.member.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 /*
  * Copyright 2018 the original author or authors.
@@ -25,6 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.hafrans.bank.member.beans.domain.CInfo;
 import com.hafrans.bank.member.service.CInfoService;
 
 @Controller("memberClientInfo")
@@ -35,9 +41,25 @@ public class ClientInfoController {
 	private CInfoService service;
 	
 	
+	@Value("${defaultPageSize}")
+	private int pageSize;
+	
+	
+	
 	@RequestMapping(value={"/","/index"})
-	public String index(Model model){
-		model.addAttribute("list", service.findAll());
+	public String index(Model model,@RequestParam(value="page",required=false,defaultValue="1") int page){
+		if(page <= 0){
+			page = 1;
+		}
+		PageHelper.startPage(page,pageSize);
+		List<CInfo> list = service.findAll();
+		Page<CInfo> info = (Page<CInfo>) list;
+		model.addAttribute("list", list);
+		model.addAttribute("total", info.getTotal());
+		model.addAttribute("current", info.getPageNum());
+		model.addAttribute("max", info.getPages());
+		info.close();
+		
 		return "member/clientinfo/index";
 	}
 	

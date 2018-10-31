@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.hafrans.bank.member.mapper.CmInfoMapper">
+ 	<resultMap type="com.hafrans.bank.member.beans.domain.CmInfo" id="cminfo">
+ 		<id     property="id"	    column="CM_ID" javaType="int"/>
+ 		<result property="showNo" column="CM_SHOW_NO" javaType="java.lang.String"/>
+ 		<result property="name" column="CM_NAME" javaType="java.lang.String"/> 
+ 		<result property="sex" column="CM_SEX" javaType="java.lang.String" />
+ 		<result property="ssn" column="CM_SSN" javaType="java.lang.String"/>
+ 		<result property="birthday" column="CM_BIRTHDAY" javaType="java.sql.Date"/>
+ 		<result property="age" column="CM_AGE" javaType="int"/>
+ 		<result property="nation" column="CM_NATION" javaType="java.lang.String"/>
+ 		<result property="politicalLandscape" column="CM_POLITICAL_LANDSCAPE" javaType="java.lang.String"/>
+ 		<result property="hometown" column="CM_HOMETOWN" javaType="java.lang.String"  />
+ 		<result property="photo" column="CM_PHOTO" javaType="java.lang.String"/>
+ 		<result property="education" column="CM_EDUCATION" javaType="java.lang.String"/>
+ 		<result property="degree" column="CM_DEGREE" javaType="java.lang.String"/>
+ 		<result property="status" column="CM_STATUS" javaType="java.lang.String"/> 
+ 	</resultMap>
+ 	
+ 	
+ 	<select id="findAll" resultMap="cminfo">
+ 		SELECT * FROM gzcrm_cminfo 
+ 	</select>
+ 	
+ 	<select id="findById" parameterType="int" resultMap="cminfo">
+ 		SELECT * FROM gzcrm_cminfo where CM_ID = #{id}
+ 	</select>
+ 	
+ 	<update id="update" parameterType="com.hafrans.bank.member.beans.domain.CmInfo">
+ 		UPDATE 
+ 			gzcrm_cminfo 
+ 		SET
+ 			CM_NAME = #{name},
+ 			CM_SEX  = #{sex},
+ 			CM_SHOW_NO = #{showNo},
+ 			CM_SSN  = #{ssn},
+ 			CM_BIRTHDAY = #{birthday},
+ 			CM_AGE = #{age},
+ 			CM_NATION = #{nation},
+ 			CM_POLITICAL_LANDSCAPE = #{politicalLandscape},
+ 			CM_HOMETOWN = #{hometown},
+ 			CM_PHOTO = #{photo},
+ 			CM_EDUCATION = #{education},
+ 			CM_DEGREE = #{degree},
+ 			CM_STATUS = #{status}
+ 		WHERE
+ 		    CM_ID = #{id}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="int" >
+ 		DELETE FROM gzcrm_cminfo WHERE CM_ID = #{id}
+ 	</delete>
+ 	
+ 
+ </mapper>

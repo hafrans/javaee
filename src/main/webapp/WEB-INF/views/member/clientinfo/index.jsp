@@ -105,7 +105,8 @@
 						<c:when test="${not(empty(list)) }">
 							<c:forEach items="${list }" var="item">
 								<tr class="userinfo">
-									<td><input name="id" type="checkbox" value="${item.key }" /></th>
+									<td><input name="id" type="checkbox" value="${item.key }" />
+									</th>
 									<td>${item.name }</td>
 									<td>${item.ssn }</td>
 									<td>${item.tel }</td>
@@ -127,52 +128,91 @@
 					</c:choose>
 				</tbody>
 			</table>
-			<div class="pagin">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-					<tr>
-						<td class="STYLE4"><div class="message">
-								共<i class="blue">260</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页
-							</div></td>
-						<td><table border="0" align="right" cellpadding="0"
-								cellspacing="0">
-								<tr>
-									<td width="45"><img
-										src="${pageContext.request.contextPath}/static/images/first.gif"
-										width="33" height="20" style="cursor:hand"
-										onclick="firstPage()" /></td>
-									<td width="50"><img
-										src="${pageContext.request.contextPath}/static/images/back.gif"
-										width="43" height="20" style="cursor:hand"
-										onclick="priviousPage()" /></td>
-									<td width="50"><img
-										src="${pageContext.request.contextPath}/static/images/next.gif"
-										width="43" height="20" style="cursor:hand"
-										onclick="nextPage()" /></td>
-									<td width="40"><img
-										src="${pageContext.request.contextPath}/static/images/last.gif"
-										width="33" height="20" style="cursor:hand"
-										onclick="lastPage()" /></td>
-									<td width="100"><div align="center">
-											<span class="STYLE1">转到第 <input name="textfield"
-												type="text" size="4"
-												style="height:16px; width:35px; border:1px solid #999999;" />
-												页
-											</span>
-										</div></td>
-									<td width="40"><img
-										src="${pageContext.request.contextPath}/static/images/go.gif"
-										width="33" height="17" style="cursor:hand" onclick="goPage()" /></td>
-								</tr>
-							</table></td>
-					</tr>
-				</table>
-			</div>
+			
+				<div class="pagin">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td class="STYLE4"><div class="message">
+									共<i class="blue">${total }</i>条记录，当前显示第&nbsp;<i class="blue">${current }&nbsp;</i>页,共<i class="blue">${max }</i>页
+								</div></td>
+							<td>
+								<table border="0" align="right" cellpadding="0" cellspacing="0">
+									<tr>
+										<td width="45"><img
+											src="${pageContext.request.contextPath}/static/images/first.gif"
+											width="33" height="20" style="cursor:hand"
+											onclick="firstPage()" /></td>
+										<td width="50"><img
+											src="${pageContext.request.contextPath}/static/images/back.gif"
+											width="43" height="20" style="cursor:hand"
+											onclick="priviousPage()" /></td>
+										<td width="50"><img
+											src="${pageContext.request.contextPath}/static/images/next.gif"
+											width="43" height="20" style="cursor:hand"
+											onclick="nextPage()" /></td>
+										<td width="40"><img
+											src="${pageContext.request.contextPath}/static/images/last.gif"
+											width="33" height="20" style="cursor:hand"
+											onclick="lastPage()" /></td>
+										<td width="100"><div align="center">
+												<span class="STYLE1">转到第 <input name="textfield"
+													type="text" size="4"
+													style="height:16px; width:35px; border:1px solid #999999;" />
+													页
+												</span>
+											</div></td>
+										<td width="40"><img
+											src="${pageContext.request.contextPath}/static/images/go.gif"
+											width="33" height="17" style="cursor:hand" onclick="goPage()" /></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
 		</div>
 	</form>
 
 	<script type="text/javascript">
 		$('.tablelist tbody tr:odd').addClass('odd');
-	
+		///page
+		
+		function deletePage(){
+			var search = location.search.slice(1).replace(/(.*)?((?<=&{1}|^)page=\d+&|&{1}page=\d+$)(.*)/,"$1$3");
+			return location.pathname+"?"+search;
+		}
+		
+		function firstPage(){
+			location.href = deletePage()+"&page=1";
+		}
+		
+		function lastPage(){
+			location.href = deletePage()+"&page=${max}";
+		}
+		function priviousPage(){//拼写错误补丁
+			previousPage();
+		}
+		function previousPage(){
+			var cur = ${current};
+			var max = ${max};
+			if(cur == 1){
+				alert("这是第一页！");
+				return false;
+			}
+			
+			location.href = deletePage()+"&page="+(cur-1);
+		}	
+		
+		function nextPage(){
+			var cur = ${current};
+			var max = ${max};
+			if(cur == max){
+				alert("这是最后一页！");
+				return false;
+			}
+			location.href = deletePage()+"&page="+(cur+1);
+		}	
+		///
 	
 		function findAllSelected() {
 			let arr = [];

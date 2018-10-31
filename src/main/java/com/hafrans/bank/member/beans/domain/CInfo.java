@@ -16,9 +16,18 @@ public class CInfo {
 	
 	////////////////////////////
 	
+	private CmInfo cm;
 	
 	////
 	
+	public CmInfo getCm() {
+		return cm;
+	}
+	public void setCm(CmInfo cm) {
+		this.cm = cm;
+	}
+	
+	///////////////////////////
 	public int getKey() {
 		return key;
 	}

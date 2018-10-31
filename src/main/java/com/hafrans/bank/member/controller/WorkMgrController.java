@@ -10,6 +10,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.hafrans.bank.member.beans.domain.CmInfoWork;
 import com.hafrans.bank.member.beans.domain.YcMember;
 import com.hafrans.bank.member.beans.vo.GenericResultVO;
@@ -31,12 +34,16 @@ import com.hafrans.bank.utils.toolkit.BeansToolkit;
 
 @Controller("memberWorkMgr")
 @RequestMapping("/Member/WorkMgr")
-@SessionAttributes({SessionConstraints.LOGIN_ENTITY})
+@SessionAttributes({ SessionConstraints.LOGIN_ENTITY })
 public class WorkMgrController {
 
 	@Autowired
 	private CmInfoWorkService service;
-
+	
+	@Value("${defaultPageSize}")
+	private int pageSize;
+	
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.addCustomFormatter(new Formatter<java.sql.Date>() {
@@ -56,28 +63,38 @@ public class WorkMgrController {
 	}
 
 	@RequestMapping(value = { "/index", "/" })
-	public String index(Model model, @RequestParam(value = "cmid", required = false) String cmid,
-			@RequestParam(value="",required=false) Date cmdate,@ModelAttribute(value=SessionConstraints.LOGIN_ENTITY) YcMember member) {
-		
-		if( cmid != null || cmdate != null){
-			
-			if(member.getRoleId().contentEquals("1")){
-				model.addAttribute("list", service.findByInfo(cmid, cmdate));
-			}else{
-				model.addAttribute("list", service.findByInfoLimited(cmid, cmdate,member.getId()+""));
+	public String index(@RequestParam(value = "page", required = false, defaultValue = "1") int page, Model model,
+						@RequestParam(value = "cmid", required = false) String cmid,
+						@RequestParam(value = "", required = false) Date cmdate,
+						@ModelAttribute(value = SessionConstraints.LOGIN_ENTITY) YcMember member) {
+		if(page <= 0){
+			page = 1;
+		}
+		PageHelper.startPage(page,pageSize);
+		List<CmInfoWork> list = null;
+		if (cmid != null || cmdate != null) {
+
+			if (member.getRoleId().contentEquals("1")) {
+				list = service.findByInfo(cmid, cmdate);
+			} else {
+				list = service.findByInfoLimited(cmid, cmdate, member.getId() + "");
 			}
-			
-		}else{
-			if(member.getRoleId().contentEquals("1")){
-				model.addAttribute("list", service.findAll());
-			}else{
-				model.addAttribute("list", service.findByLimited(member.getId()));
+
+		} else {
+			if (member.getRoleId().contentEquals("1")) {
+				list = service.findAll();
+			} else {
+				list =  service.findByLimited(member.getId());
 			}
 		}
-		
-		
-		
-		
+		System.out.println(list);
+		Page<CmInfoWork> info = (Page<CmInfoWork>) list;
+		model.addAttribute("list", list);
+		model.addAttribute("total", info.getTotal());
+		model.addAttribute("current", info.getPageNum());
+		model.addAttribute("max", info.getPages());
+		info.close();
+
 		return "member/workmgr/index";
 	}
 
@@ -90,10 +107,10 @@ public class WorkMgrController {
 	@ResponseBody
 	public GenericResultVO add(CmInfoWork work, HttpSession session) {
 		System.out.println(work);
-		work.setId(((YcMember)session.getAttribute(SessionConstraints.LOGIN_ENTITY)).getId());
+		work.setId(((YcMember) session.getAttribute(SessionConstraints.LOGIN_ENTITY)).getId());
 		try {
 			service.addOne(work);
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new GenericResultVO(0, e.getMessage(), new java.util.Date());
 		}

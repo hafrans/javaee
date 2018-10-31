@@ -45,7 +45,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		Object obj = session.getAttribute(SessionConstraints.LOGIN_ENTITY);
 		
 		if( obj == null){
-			//请求转发
+			//转发
 			arg1.sendRedirect(arg0.getContextPath()+"/Member/login");
 			return false;
 		}else{

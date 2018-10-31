@@ -16,14 +16,61 @@
 		<result property="business" column="C_BUSINESS"  javaType="java.lang.String"/>
 		<result property="unit"     column="C_UNIT"      javaType="java.lang.String"/>
 		<result property="add"      column="C_ADD"       javaType="java.lang.String"/>
+		<association property="cm" resultMap="cminfo"></association>
 	</resultMap>
+	
+	<!-- addon -->
+	<resultMap type="com.hafrans.bank.member.beans.domain.CmInfo" id="cminfo">
+		<id     property="id"	    column="CM_ID" javaType="int"/>
+ 		<result property="showNo" column="CM_SHOW_NO" javaType="java.lang.String"/>
+ 		<result property="name" column="CM_NAME" javaType="java.lang.String"/> 
+ 		<result property="sex" column="CM_SEX" javaType="java.lang.String" />
+ 		<result property="ssn" column="CM_SSN" javaType="java.lang.String"/>
+ 		<result property="birthday" column="CM_BIRTHDAY" javaType="java.sql.Date"/>
+ 		<result property="age" column="CM_AGE" javaType="int"/>
+ 		<result property="nation" column="CM_NATION" javaType="java.lang.String"/>
+ 		<result property="politicalLandscape" column="CM_POLITICAL_LANDSCAPE" javaType="java.lang.String"/>
+ 		<result property="hometown" column="CM_HOMETOWN" javaType="java.lang.String"  />
+ 		<result property="photo" column="CM_PHOTO" javaType="java.lang.String"/>
+ 		<result property="education" column="CM_EDUCATION" javaType="java.lang.String"/>
+ 		<result property="degree" column="CM_DEGREE" javaType="java.lang.String"/>
+ 		<result property="status" column="CM_STATUS" javaType="java.lang.String"/> 
+	</resultMap>
+	
+	
 		
 	
 	<select id="findAll" resultMap="cinfo" >
 		SELECT
-		    *
+			c.C_KEY as C_KEY,
+		    c.C_CM_ID as C_CM_ID,
+			c.C_SSN as C_SSN,
+			c.C_NAME as C_NAME,
+			c.C_TEL  as C_TEL,
+			c.C_SALARY as C_SALARY,
+			c.C_BALANCE as C_BALANCE,
+			c.C_DEBT as C_DEBT ,
+			c.C_BUSINESS as C_BUSINESS ,
+			c.C_UNIT as C_UNIT,
+			c.C_ADD as C_ADD,
+			cm.CM_NAME as CM_NAME,
+ 			cm.CM_SEX  CM_SEX,
+ 			cm.CM_SHOW_NO as CM_SHOW_NO,
+ 			cm.CM_SSN as  CM_SSN,
+ 			cm.CM_BIRTHDAY as CM_BIRTHDAY,
+ 			cm.CM_AGE as CM_AGE,
+ 			cm.CM_NATION as CM_NATION,
+ 			cm.CM_POLITICAL_LANDSCAPE as CM_POLITICAL_LANDSCAPE,
+ 			cm.CM_HOMETOWN as  CM_HOMETOWN,
+ 			cm.CM_PHOTO as  CM_PHOTO,
+ 			cm.CM_EDUCATION as CM_EDUCATION,
+ 			cm.CM_DEGREE as CM_DEGREE,
+ 			cm.CM_STATUS as  CM_STATUS
 		FROM
-		   gzcrm_cinfo
+		   gzcrm_cinfo as c
+		LEFT JOIN
+		   gzcrm_cminfo as cm
+		ON c.C_CM_ID = cm.CM_ID
 	</select>
 	
 	<update id="update" parameterType="com.hafrans.bank.member.beans.domain.CInfo">

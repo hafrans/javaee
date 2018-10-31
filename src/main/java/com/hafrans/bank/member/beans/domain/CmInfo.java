@@ -16,7 +16,7 @@ public class CmInfo {
 	
 	private int age ;
 	
-	private int nation;
+	private String nation;
 	
 	private String politicalLandscape;
 	
@@ -31,6 +31,17 @@ public class CmInfo {
 	private String status;
 	
 	
+	private String showNo;
+	
+	
+
+	public String getShowNo() {
+		return showNo;
+	}
+
+	public void setShowNo(String showNo) {
+		this.showNo = showNo;
+	}
 
 	public int getId() {
 		return id;
@@ -80,11 +91,11 @@ public class CmInfo {
 		this.age = age;
 	}
 
-	public int getNation() {
+	public String getNation() {
 		return nation;
 	}
 
-	public void setNation(int nation) {
+	public void setNation(String nation) {
 		this.nation = nation;
 	}
 

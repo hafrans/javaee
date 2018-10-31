@@ -12,6 +12,7 @@
 	
 	<context:component-scan base-package="com.hafrans.bank" />
 	
+	<context:property-placeholder location="classpath:config/config.properties"/>
 	
 	<!-- 配置 druid 数据源 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
@@ -27,6 +28,17 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations" value="classpath*:mapper/**/*.xml" />
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageInterceptor" >
+					<property name="properties">
+						<value>
+							 helperDialect=mysql
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
 	</bean>
 
 	<!-- 配置 sqlSessionTemplate 持久化模板 创建 sqlsession -->

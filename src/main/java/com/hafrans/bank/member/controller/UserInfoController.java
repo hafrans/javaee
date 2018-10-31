@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.hafrans.bank.member.beans.domain.CInfo;
 import com.hafrans.bank.member.beans.domain.YcMember;
 import com.hafrans.bank.member.beans.formatter.TimeStampFormatter;
 import com.hafrans.bank.member.beans.vo.GenericResultVO;
@@ -31,6 +35,8 @@ public class UserInfoController {
 	@Autowired
 	private YcMemberService ycMemberService;
 	
+	@Value("${defaultPageSize}")
+	private int pageSize;
 	
 	@Autowired
 	private TimeStampFormatter timeStampformatter;
@@ -50,16 +56,23 @@ public class UserInfoController {
 	 * @return
 	 */
 	@RequestMapping(value={"","/index"})
-	public String index(@RequestParam(required=false,value="name")String name, @RequestParam(required=false) String id,@RequestParam(value="page",defaultValue="1") int page, @RequestParam(value="page",defaultValue="25") int count,Model model){
+	public String index(@RequestParam(required=false,value="name")String name, @RequestParam(required=false) String id,@RequestParam(value="page",required=false,defaultValue="1") int page,Model model){
+		if(page <= 0){
+			page = 1;
+		}
 		List<YcMember> members = null;
+		PageHelper.startPage(page,pageSize);
 		if(name != null || id != null){
 			members = ycMemberService.findbyInfo(name, id);
 		}else{
-			members = ycMemberService.listAllMember(count, page);
-			
+			members = ycMemberService.listAllMember();
 		}
-		
+		Page<YcMember> info = (Page<YcMember>) members;
 		model.addAttribute("userlist",  members);
+		model.addAttribute("total", info.getTotal());
+		model.addAttribute("current", info.getPageNum());
+		model.addAttribute("max", info.getPages());
+		info.close();
 			
 		return "member/userinfo/index";
 	}
