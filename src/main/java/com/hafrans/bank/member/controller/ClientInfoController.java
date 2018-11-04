@@ -63,6 +63,7 @@ public class ClientInfoController {
 		if(page <= 0){
 			page = 1;
 		}
+		System.out.println("Hello!");
 		PageHelper.startPage(page,pageSize);
 		List<CInfo> list = service.findAll();
 		Page<CInfo> info = (Page<CInfo>) list;
