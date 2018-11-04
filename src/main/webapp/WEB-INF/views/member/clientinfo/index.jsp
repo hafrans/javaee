@@ -63,14 +63,14 @@
 			<li><a href="#">客户信息管理</a></li>
 		</ul>
 	</div>
-	<form action="" method="post">
+	<form action="${pageContext.request.contextPath}/Member/ClientInfo/" method="get">
 		<div class="formbody">
 			<ul class="seachform">
-				<li><label>客户经理编号</label><input name="" type="text"
+				<li><label>客户经理编号</label><input name="cmshowno" type="text"
 					class="scinput" /></li>
-				<li><label>客户姓名</label><input name="" type="text"
+				<li><label>客户姓名</label><input name="cname" type="text"
 					class="scinput" /></li>
-				<li><label>客户身份证号</label><input name="" type="text"
+				<li><label>客户身份证号</label><input name="cssn" type="text"
 					class="scinput" /></li>
 				<li><label>&nbsp;</label><input name="" type="submit"
 					class="scbtn" value="查询" /></li>
@@ -141,7 +141,7 @@
 						</c:when>
 						<c:otherwise>
 							<tr class="userinfo">
-								<td colspan="11">-- 客户信息为空！ --</td>
+								<td colspan="11" style="text-align:center;color:gray">-- 客户信息为空！ --</td>
 							</tr>
 						</c:otherwise>
 					</c:choose>

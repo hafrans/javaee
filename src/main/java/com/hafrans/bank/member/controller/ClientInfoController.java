@@ -23,7 +23,6 @@ import org.springframework.dao.DataIntegrityViolationException;
  * limitations under the License.
  */
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,101 +43,105 @@ import com.hafrans.bank.utils.constraints.SessionConstraints;
 
 @Controller("memberClientInfo")
 @RequestMapping("/Member/ClientInfo")
-@SessionAttributes({SessionConstraints.LOGIN_ENTITY})
+@SessionAttributes({ SessionConstraints.LOGIN_ENTITY })
 public class ClientInfoController {
-	
+
 	@Autowired
 	private CInfoService service;
-	
-	
+
 	@Value("${defaultPageSize}")
 	private int pageSize;
-	
+
 	@Autowired
 	private CmInfoMapper mapper;
-	
-	
-	
-	@RequestMapping(value={"/","/index"})
-	public String index(Model model,@RequestParam(value="page",required=false,defaultValue="1") int page){
-		if(page <= 0){
+
+	@RequestMapping(value = { "/", "/index" })
+	public String index(@RequestParam(required = false, defaultValue = "") String cname,
+			@RequestParam(required = false, defaultValue = "") String cssn,
+			@RequestParam(required = false, defaultValue = "") String cmshowno, Model model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+		if (page <= 0) {
 			page = 1;
 		}
 		System.out.println("Hello!");
-		PageHelper.startPage(page,pageSize);
-		List<CInfo> list = service.findAll();
+		PageHelper.startPage(page, pageSize);
+		List<CInfo> list= null;
+		
+		if(!cname.contentEquals("") || ! cssn.contentEquals("") || ! cmshowno.contentEquals("")){
+			list = service.findByInfo(cmshowno, cssn, cname);
+		}else{
+			list = service.findAll();
+		}
+		
 		Page<CInfo> info = (Page<CInfo>) list;
 		model.addAttribute("list", list);
 		model.addAttribute("total", info.getTotal());
 		model.addAttribute("current", info.getPageNum());
 		model.addAttribute("max", info.getPages());
 		info.close();
-		
+
 		return "member/clientinfo/index";
 	}
-	
-	
-	
-	@RequestMapping(value="/add",method=RequestMethod.GET)
-	public String add(){
+
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String add() {
 		return "member/clientinfo/add";
 	}
-	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResultVO addClient(CInfo info,@ModelAttribute(SessionConstraints.LOGIN_ENTITY) YcMember me){
-		
-		try{	
-			if(mapper.findById(me.getId()) == null){
-				return new GenericResultVO(0, "您没有客户经理的权限！",new Date());
+	public GenericResultVO addClient(CInfo info, @ModelAttribute(SessionConstraints.LOGIN_ENTITY) YcMember me) {
+
+		try {
+			if (mapper.findById(me.getId()) == null) {
+				return new GenericResultVO(0, "您没有客户经理的权限！", new Date());
 			}
 			info.setCmId(me.getId());
-			if(service.create(info) == 1){
-				return new GenericResultVO(1, "用户添加成功！",new Date());
-			}else{
-				return new GenericResultVO(0, "添加失败！",new Date());
+			if (service.create(info) == 1) {
+				return new GenericResultVO(1, "用户添加成功！", new Date());
+			} else {
+				return new GenericResultVO(0, "添加失败！", new Date());
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-			return new GenericResultVO(0, "添加失败！客户可能有重复",new Date());
+			return new GenericResultVO(0, "添加失败！客户可能有重复", new Date());
 		}
-		
+
 	}
-	
-	@RequestMapping(value="/update",method=RequestMethod.GET)
-	public String updateShow(@RequestParam String id,Model model){
-		
+
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateShow(@RequestParam String id, Model model) {
+
 		CInfo info = service.findByStringId(id);
-		if(info == null){
+		if (info == null) {
 			throw new IllegalArgumentException("can not find a id");
 		}
-		
+
 		model.addAttribute("item", info);
-		
+
 		return "member/clientinfo/update";
 	}
-	
-	@RequestMapping(value="/update",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResultVO updateSumbit(CInfo info){	
-		
-		if(info  == null || info.getKey() == 0){
-			return new GenericResultVO(0, "上传数据出现问题",new Date());
+	public GenericResultVO updateSumbit(CInfo info) {
+
+		if (info == null || info.getKey() == 0) {
+			return new GenericResultVO(0, "上传数据出现问题", new Date());
 		}
-		
-		try{
-			if(service.update(info) == 1){
-				return new GenericResultVO(1, "更新成功！",new Date());
-			}else{
-				return new GenericResultVO(0, "更新失败",new Date());
+
+		try {
+			if (service.update(info) == 1) {
+				return new GenericResultVO(1, "更新成功！", new Date());
+			} else {
+				return new GenericResultVO(0, "更新失败", new Date());
 			}
-		}catch(DataIntegrityViolationException e){
-			return new GenericResultVO(0, e.getMessage(),new Date());
+		} catch (DataIntegrityViolationException e) {
+			return new GenericResultVO(0, e.getMessage(), new Date());
 		} catch (ReflectiveOperationException e) {
-			return new GenericResultVO(0, e.getMessage(),new Date());
+			return new GenericResultVO(0, e.getMessage(), new Date());
 		}
-		
+
 	}
-	
-	
+
 }

@@ -1,6 +1,8 @@
 package com.hafrans.bank.member.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -57,5 +59,21 @@ public class CInfoServiceImpl implements CInfoService {
 		}
 		return mapper.findById(Integer.valueOf(id));
 	}
+
+	@Override
+	public List<CInfo> findByInfo(String cmshowno, String cssn, String cname) {
+		
+		//filter 
+		
+		Map<String,String> info = new HashMap<String, String>();
+		
+		info.put("cmshowno",cmshowno.contentEquals("")? null : cmshowno);
+		info.put("cssn","".equals(cssn) ? null : cssn);
+		info.put("cname","".contentEquals(cname) ? null : cname);
+		
+		return mapper.findByInfo(cname, cssn, cmshowno);
+	}
+
+
 
 }

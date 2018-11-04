@@ -1,6 +1,7 @@
 package com.hafrans.bank.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -11,6 +12,8 @@ public interface CInfoService {
 	public abstract List<CInfo> findAll();
 	
 	public abstract CInfo findByStringId(String id);
+	
+	public abstract List<CInfo> findByInfo(String cmshowno,String cssn, String cname);
 	
 	public abstract int update(CInfo info) throws DataIntegrityViolationException, ReflectiveOperationException;
 	
