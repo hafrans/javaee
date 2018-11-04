@@ -76,12 +76,13 @@ public class MapperTest {
 	@Test
 	public void testPagedList(){
 		
-		List<YcMember> members = ycMemberMapper.listPagedMember(GenericToolkit.PagedInfoMapBuilder(0, 10));
 		
-		for(YcMember m : members){
-			System.out.println(m);
-		}
-		
+//		List<YcMember> members = ycMemberMapper.listPagedMember(GenericToolkit.PagedInfoMapBuilder(0, 10));
+//		
+//		for(YcMember m : members){
+//			System.out.println(m);
+//		}
+//		
 	}
 	
 	//@Test
@@ -89,11 +90,11 @@ public class MapperTest {
 		
 		System.out.println(ycMemberMapper.delete(1002));
 		
-		List<YcMember> members = ycMemberMapper.listPagedMember(GenericToolkit.PagedInfoMapBuilder(0, 10));
-		
-		for(YcMember m : members){
-			System.out.println(m);
-		}
+//		List<YcMember> members = ycMemberMapper.listPagedMember(GenericToolkit.PagedInfoMapBuilder(0, 10));
+//		
+//		for(YcMember m : members){
+//			System.out.println(m);
+//		}
 	}
 	
 	

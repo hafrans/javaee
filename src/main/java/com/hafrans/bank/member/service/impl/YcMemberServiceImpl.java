@@ -73,6 +73,7 @@ public class YcMemberServiceImpl implements YcMemberService {
 		return ycMemberMapper.delete(member.getId()) == 1;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public List<YcMember> listAllMember(int count, int page) {
 		if(count == 0){
