@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hafrans.bank.member.beans.domain.YcMember;
 import com.hafrans.bank.member.mapper.YcMemberMapper;
-import com.hafrans.bank.utils.toolkit.GenericToolkit;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:config/applicationContext.xml"})
@@ -76,12 +75,13 @@ public class MapperTest {
 	@Test
 	public void testPagedList(){
 		
-		List<YcMember> members = ycMemberMapper.listPagedMember(GenericToolkit.PagedInfoMapBuilder(0, 10));
 		
-		for(YcMember m : members){
-			System.out.println(m);
-		}
-		
+//		List<YcMember> members = ycMemberMapper.listPagedMember(GenericToolkit.PagedInfoMapBuilder(0, 10));
+//		
+//		for(YcMember m : members){
+//			System.out.println(m);
+//		}
+//		
 	}
 	
 	//@Test
@@ -89,11 +89,11 @@ public class MapperTest {
 		
 		System.out.println(ycMemberMapper.delete(1002));
 		
-		List<YcMember> members = ycMemberMapper.listPagedMember(GenericToolkit.PagedInfoMapBuilder(0, 10));
-		
-		for(YcMember m : members){
-			System.out.println(m);
-		}
+//		List<YcMember> members = ycMemberMapper.listPagedMember(GenericToolkit.PagedInfoMapBuilder(0, 10));
+//		
+//		for(YcMember m : members){
+//			System.out.println(m);
+//		}
 	}
 	
 	

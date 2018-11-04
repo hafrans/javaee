@@ -29,14 +29,12 @@ public class PagedIntercepter implements Interceptor {
 
 	@Override
 	public Object plugin(Object target) {
-		// TODO Auto-generated method stub
 		System.out.println("plugin called , target is "+target.getClass().toString());
 		return Plugin.wrap(target, this);
 	}
 
 	@Override
 	public void setProperties(Properties properties) {
-		// TODO Auto-generated method stub
 
 	}
 
