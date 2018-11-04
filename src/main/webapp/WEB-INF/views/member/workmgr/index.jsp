@@ -229,7 +229,11 @@
 		///page
 		
 		function deletePage(){
-			var search = location.search.slice(1).replace(/(.*)?((?<=&{1}|^)page=\d+&|&{1}page=\d+$)(.*)/,"$1$3");
+			//var search = location.search.slice(1).replace(/(.*)?((?<=&{1}|^)page=\d+&|&{1}page=\d+$)(.*)/,"$1$3");
+			/**
+			 Bug fix: javascript does not support this feature : ?<= except new Chrome 
+			**/
+			var search = location.search.slice(1).replace(/(.*)?(&{1}page=\d+$)(.*)/,"$1$3");
 			return location.pathname+"?"+search;
 		}
 		
