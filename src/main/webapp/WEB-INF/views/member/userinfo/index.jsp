@@ -18,7 +18,8 @@
 <script type="text/javascript">
 	function confirmMsgDel() {
 		if (confirm("删除用户信息,您确定要删除吗?"))
-			window.close();
+			sendForDelete(findAllSelected());
+
 	}
 	function userOpen() {
 		if (confirm("您确定要启用该用户吗?"))
@@ -35,7 +36,7 @@
 </script>
 <script type="text/javascript">
 	function workUpdate(arr) {
-		if (arr.length != 1 ) {
+		if (arr.length != 1) {
 			alert("请选择一个需要修改的项目！");
 			return false;
 		}
@@ -74,12 +75,14 @@
 		</ul>
 	</div>
 	<!-- //TODO -->
-	<form action="${pageContext.request.contextPath}/Member/UserInfo/index" method="post" id="userinfo" >
+	<form action="${pageContext.request.contextPath}/Member/UserInfo/index"
+		method="post" id="userinfo">
 		<div class="formbody">
 			<ul class="seachform">
 				<li><label>用户编号</label><input name="id" type="number"
 					class="scinput" /></li>
-				<li><label>姓名</label><input name="name" type="text" class="scinput" /></li>
+				<li><label>姓名</label><input name="name" type="text"
+					class="scinput" /></li>
 				<li><label>&nbsp;</label><input name="" type="submit"
 					class="scbtn" value="查询" /></li>
 			</ul>
@@ -88,7 +91,8 @@
 		<div class="rightinfo">
 			<div class="tools">
 				<ul class="toolbar1">
-					<li><a href="${pageContext.request.contextPath}/Member/UserInfo/add"><span><img
+					<li><a
+						href="${pageContext.request.contextPath}/Member/UserInfo/add"><span><img
 								src="${pageContext.request.contextPath}/static/images/t01.png" /></span>添加</a></li>
 					<li><a onclick="workUpdate(findAllSelected())"><span><img
 								src="${pageContext.request.contextPath}/static/images/t02.png" /></span>修改</a></li>
@@ -113,7 +117,9 @@
 				</thead>
 				<thead>
 					<tr>
-						<th><input onchange="javascript:$('.userinfo input[type=checkbox]').attr('checked',this.checked)" name="" type="checkbox" value="" /></th>
+						<th><input
+							onchange="javascript:$('.userinfo input[type=checkbox]').attr('checked',this.checked)"
+							name="" type="checkbox" value="" /></th>
 						<th>用户编号</th>
 						<th>姓名</th>
 						<th>状态</th>
@@ -147,7 +153,8 @@
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td class="STYLE4"><div class="message">
-								共<i class="blue">${total }</i>条记录，当前显示第&nbsp;<i class="blue">${current }&nbsp;</i>页,共<i class="blue">${max }</i>页
+								共<i class="blue">${total }</i>条记录，当前显示第&nbsp;<i class="blue">${current }&nbsp;</i>页,共<i
+									class="blue">${max }</i>页
 							</div></td>
 						<td><table border="0" align="right" cellpadding="0"
 								cellspacing="0">
@@ -308,6 +315,32 @@
 			location.href = deletePage()+"&page="+(cur+1);
 		}	
 		///
+		
+		function sendForDelete(arr) {
+			if(arr.length == 0){
+				alert("您没有选中任何一条");
+				return false;
+			}
+			$.ajax({
+				url : "${pageContext.request.contextPath}/Member/UserInfo/delete",
+				type : "POST",
+				data : {
+					id : arr
+				},
+				dataType : "json",
+				success : function(data, text, xhr) {
+					if (data.status == 1) { //成功
+						alert(data.msg);
+						location.reload();
+					} else {
+						alert(data.msg);
+					}
+				},
+				error : function(xhr, text, errThrown) {
+					alert("请求异常" + text);
+				}
+			});
+		}
 		
 	</script>
 

@@ -19,6 +19,8 @@ public interface CInfoService {
 	
 	public abstract int delete(int id);
 	
+	public abstract int delete(List<Integer> id);
+	
 	public abstract int create(CInfo info);
 	
 }

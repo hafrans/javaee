@@ -185,6 +185,17 @@
 		</trim> 	
 	</select>
 	
+	
+	<delete id="deleteBatch" parameterType="list">
+		DELETE FROM
+		  gzcrm_cinfo
+	    WHERE
+	    	C_KEY IN 
+	    <foreach collection="list" item="id" open="(" separator="," close=")">
+	    	#{id}
+	    </foreach>
+	</delete>
+	
 
 
 </mapper>

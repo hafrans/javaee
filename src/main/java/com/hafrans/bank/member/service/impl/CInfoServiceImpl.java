@@ -74,6 +74,13 @@ public class CInfoServiceImpl implements CInfoService {
 		return mapper.findByInfo(cname, cssn, cmshowno);
 	}
 
+	@Override
+	public int delete(List<Integer> id) {
+		return mapper.deleteBatch(id);
+	}
+	
+	
+
 
 
 }

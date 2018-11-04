@@ -66,14 +66,15 @@
 		</ul>
 	</div>
 
-	<form action="${pageContext.request.contextPath}/Member/WorkMgr/index" method="get">
+	<form action="${pageContext.request.contextPath}/Member/WorkMgr/index"
+		method="get">
 		<div class="formbody">
 			<ul class="seachform">
 				<li><label>客户经理编号</label><input name="cmid" type="text"
-					class="scinput" 
+					class="scinput"
 					<c:if test='${login_entity.roleId != 1}'>readonly</c:if> /></li>
 				<li><label>录入日期</label><input name="cmdate" type="date"
-					class="scinput" value=""/></li>
+					class="scinput" value="" /></li>
 				<li><label>&nbsp;</label><input name="" type="submit"
 					class="scbtn" value="查询" /></li>
 			</ul>
@@ -99,7 +100,9 @@
 				</thead>
 				<thead>
 					<tr>
-						<th><input onchange="javascript:$('.userinfo input[type=checkbox]').attr('checked',this.checked)" name="" type="checkbox" value="" /></th>
+						<th><input
+							onchange="javascript:$('.userinfo input[type=checkbox]').attr('checked',this.checked)"
+							name="" type="checkbox" value="" /></th>
 						<th>记录时间</th>
 						<th>客户经理编号</th>
 						<th>客户维护</th>
@@ -118,16 +121,14 @@
 									<td id="userinfo"><input name="id" type="checkbox"
 										value="${item.key}" /></td>
 									<td>${item.date }</td>
-									<td>
-										<c:choose>
+									<td><c:choose>
 											<c:when test="${item.cm == null}">
 												客户经理不存在
 											</c:when>
 											<c:otherwise>
 												${item.cm.showNo }
 											</c:otherwise>
-										</c:choose>
-									</td>
+										</c:choose></td>
 									<td>${item.management }</td>
 									<td>${item.product }</td>
 									<td>${item.loan }</td>
@@ -151,7 +152,8 @@
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td class="STYLE4"><div class="message">
-							共<i class="blue">${total }</i>条记录，当前显示第&nbsp;<i class="blue">${current }&nbsp;</i>页,共<i class="blue">${max }</i>页
+								共<i class="blue">${total }</i>条记录，当前显示第&nbsp;<i class="blue">${current }&nbsp;</i>页,共<i
+									class="blue">${max }</i>页
 							</div></td>
 						<td><table border="0" align="right" cellpadding="0"
 								cellspacing="0">
@@ -203,6 +205,10 @@
 		}
 	
 		function sendForDelete(arr) {
+			if(arr.length == 0){
+				alert("您没有选中任何一条");
+				return false;
+			}
 			$.ajax({
 				url : "${pageContext.request.contextPath}/Member/WorkMgr/delete",
 				type : "POST",

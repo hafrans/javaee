@@ -18,7 +18,8 @@
 <script type="text/javascript">
 	function confirmMsgDel() {
 		if (confirm("删除客户信息,您确定要删除吗?"))
-			window.close();
+			sendForDelete(findAllSelected());
+
 	}
 </script>
 <script type="text/javascript">
@@ -244,6 +245,32 @@
 				arr.push($arr[e].value);
 			});
 			return arr;
+		}
+		///
+		function sendForDelete(arr) {
+			if(arr.length == 0){
+				alert("您没有选中任何一条");
+				return false;
+			}
+			$.ajax({
+				url : "${pageContext.request.contextPath}/Member/ClientInfo/delete",
+				type : "POST",
+				data : {
+					id : arr
+				},
+				dataType : "json",
+				success : function(data, text, xhr) {
+					if (data.status == 1) { //成功
+						alert(data.msg);
+						location.reload();
+					} else {
+						alert(data.msg);
+					}
+				},
+				error : function(xhr, text, errThrown) {
+					alert("请求异常" + text);
+				}
+			});
 		}
 	</script>
 

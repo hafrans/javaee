@@ -17,5 +17,7 @@ public interface CmInfoMapper {
 	
 	public abstract int delete(int id);
 	
+	public abstract int deleteBatch(List<Integer> id);
+	
 	
 }

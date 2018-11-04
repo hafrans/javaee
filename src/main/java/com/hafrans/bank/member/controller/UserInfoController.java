@@ -171,5 +171,22 @@ public class UserInfoController {
 		}
 	}
 	
+	@RequestMapping("/delete")
+	@ResponseBody
+	public GenericResultVO deleteBatch(@RequestParam("id[]") List<Integer> id) {
+
+		try {
+			if (ycMemberService.delete(id) == id.size()) {
+				return new GenericResultVO(1, "删除成功", new java.util.Date());
+			} else {
+				return new GenericResultVO(0, "删除有部分失败", new java.util.Date());
+			}
+
+		} catch (Exception e) {
+			return new GenericResultVO(0, e.getMessage(), new java.util.Date());
+		}
+
+	}
+	
 	
 }

@@ -26,6 +26,8 @@ public interface CInfoMapper {
 	public abstract int update(CInfo info);
 
 	public abstract int delete(int key);
+	
+	public abstract int deleteBatch(List<Integer> id);
 
 	public abstract int insert(CInfo info);
 

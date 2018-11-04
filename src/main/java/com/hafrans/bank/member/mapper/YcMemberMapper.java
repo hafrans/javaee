@@ -17,49 +17,48 @@ public interface YcMemberMapper {
 	// BASIC
 	// R
 	public abstract List<YcMember> findAll();
-	
+
 	public abstract YcMember findById(int id);
-	
+
 	public abstract YcMember findByName(String name);
-	
+
 	/**
-	 * Find YcMembers by Info
-	 * Supported Item as follows.
-	 *  id:String  => int
-	 *  name:String => String
+	 * Find YcMembers by Info Supported Item as follows. id:String => int
+	 * name:String => String
+	 * 
 	 * @param info
 	 * @return
 	 */
-	public abstract List<YcMember> findbyInfo(Map<String,String> info);
-	
+	public abstract List<YcMember> findbyInfo(Map<String, String> info);
+
 	/**
 	 * 分页
+	 * @deprecated
 	 * @param hashmap
-	 * 		K:start 开始offset
-	 *      K:length 长度
+	 *            K:start 开始offset K:length 长度
 	 * @return
 	 */
 	public abstract List<YcMember> listPagedMember(HashMap<String, Integer> hashmap);
-	
+
 	// U
 	public abstract int update(YcMember member);
+
 	// D
 	public abstract int delete(int id);
+
 	// C
 	public abstract int create(YcMember member);
 
 	public abstract boolean updateLastTimeByid(int id);
-	
-	
-	public abstract int deletePatch(List<Integer> id);
-	
-	public abstract int enablePatch(List<Integer> id);
-	
-	public abstract int disablePatch(List<Integer> id);
-	
-	
-	public abstract int resetPassword(List<Integer> id);
-	
 
+	public abstract int deletePatch(List<Integer> id);
+
+	public abstract int enablePatch(List<Integer> id);
+
+	public abstract int disablePatch(List<Integer> id);
+
+	public abstract int resetPassword(List<Integer> id);
+
+	public abstract int deleteBatch(List<Integer> id);
 
 }
