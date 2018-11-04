@@ -1,6 +1,7 @@
 package com.hafrans.bank.member.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,12 @@ public class IndexController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginGet() {
+	public String loginGet(String action,HttpSession session) {
+		
+		if("logout".contentEquals(action)){
+			session.invalidate();//退出登陆
+		}
+		
 		return "member/login";
 	}
 
