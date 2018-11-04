@@ -12,7 +12,7 @@ public interface CInfoService {
 	
 	public abstract CInfo findByStringId(String id);
 	
-	public abstract int update(CInfo info) throws DataIntegrityViolationException;
+	public abstract int update(CInfo info) throws DataIntegrityViolationException, ReflectiveOperationException;
 	
 	public abstract int delete(int id);
 	

@@ -46,6 +46,14 @@ public final class BeansToolkit {
 				Object objtmp = propertyDescriptor.getReadMethod().invoke(obj);
 				if(objtmp == null || objtmp.toString().isEmpty() )
 					continue;
+				if(objtmp instanceof Integer ){
+				   if (objtmp.equals(0))
+					   continue;
+					
+				}else if(objtmp instanceof Double){
+					if (objtmp.equals(0.0))
+						   continue;
+				}
 				propertyDescriptor.getWriteMethod().invoke(objTarget, propertyDescriptor.getReadMethod().invoke(obj));
 			}
 

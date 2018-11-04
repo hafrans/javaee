@@ -87,7 +87,7 @@ function submitForm(form){
     <li><label>客户姓名</label><input name="name" type="text" class="dfinput" value="${item.name }" /><i>姓名不能超过8个字符</i></li>
     <li><label>身份证号</label><input name="ssn" type="text" class="dfinput" value="${item.ssn }"/></li>
     <li><label>联系方式</label><input name="tel" type="text" class="dfinput" value="${item.tel }"/></li>
-    <li><label>年收入（万元）</label><input name="salary" type="number" value="0" step="0.01" class="dfinput" value="${item.salary }"/></li>
+    <li><label>年收入（万元）</label><input name="salary" type="number" step="0.01" class="dfinput" value="${item.salary }"/></li>
     <li><label>资产（万元）</label><input name="balance" value="${item.balance }" type="number" value="0" step="0.01" class="dfinput" /></li>
     <li><label>负债（万元）</label><input name="debt" value="${item.debt }" type="number" value="0" step="0.01" class="dfinput" /></li>
     <li><label>所在单位</label><input name="unit" value="${item.unit }" type="text" class="dfinput" /></li>

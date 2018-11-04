@@ -40,7 +40,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2) throws Exception {
 		
-		HttpSession session = arg0.getSession(true);
+		HttpSession session = arg0.getSession();
 		
 		Object obj = session.getAttribute(SessionConstraints.LOGIN_ENTITY);
 		

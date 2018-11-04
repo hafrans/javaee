@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 
 /*
  * Copyright 2018 the original author or authors.
@@ -117,6 +118,27 @@ public class ClientInfoController {
 		return "member/clientinfo/update";
 	}
 	
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@ResponseBody
+	public GenericResultVO updateSumbit(CInfo info){	
+		
+		if(info  == null || info.getKey() == 0){
+			return new GenericResultVO(0, "上传数据出现问题",new Date());
+		}
+		
+		try{
+			if(service.update(info) == 1){
+				return new GenericResultVO(1, "更新成功！",new Date());
+			}else{
+				return new GenericResultVO(0, "更新失败",new Date());
+			}
+		}catch(DataIntegrityViolationException e){
+			return new GenericResultVO(0, e.getMessage(),new Date());
+		} catch (ReflectiveOperationException e) {
+			return new GenericResultVO(0, e.getMessage(),new Date());
+		}
+		
+	}
 	
 	
 }

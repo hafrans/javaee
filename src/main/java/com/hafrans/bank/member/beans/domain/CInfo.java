@@ -96,11 +96,12 @@ public class CInfo {
 		this.add = add;
 	}
 	
-	
+
 	@Override
 	public String toString() {
 		return "CInfo [key=" + key + ", cmId=" + cmId + ", ssn=" + ssn + ", name=" + name + ", tel=" + tel + ", salary="
-				+ salary + "]";
+				+ salary + ", balance=" + balance + ", debt=" + debt + ", business=" + business + ", unit=" + unit
+				+ ", add=" + add + ", cm=" + cm + "]";
 	}
 	@Override
 	public int hashCode() {

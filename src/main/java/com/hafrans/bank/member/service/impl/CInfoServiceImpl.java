@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.hafrans.bank.member.beans.domain.CInfo;
 import com.hafrans.bank.member.mapper.CInfoMapper;
 import com.hafrans.bank.member.service.CInfoService;
+import com.hafrans.bank.utils.toolkit.BeansToolkit;
 
 @Service
 public class CInfoServiceImpl implements CInfoService {
@@ -23,13 +24,20 @@ public class CInfoServiceImpl implements CInfoService {
 	}
 
 	@Override
-	public int update(CInfo info) throws DataIntegrityViolationException {
+	public int update(CInfo info) throws DataIntegrityViolationException, ReflectiveOperationException {
 		
 		if(info.getKey() == 0){
 			return 0;
 		}
 		
-		return mapper.update(info);
+		//populate beans
+		
+		CInfo origin  = mapper.findById(info.getKey());
+		System.out.println(origin);
+		origin = BeansToolkit.<CInfo>populate(info, origin);
+		System.out.println(info);
+		System.out.println(origin);
+		return mapper.update(origin);
 	}
 
 	@Override
