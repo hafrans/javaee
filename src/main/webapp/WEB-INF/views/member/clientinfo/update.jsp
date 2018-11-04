@@ -78,7 +78,7 @@ function submitForm(form){
     </ul>
     </div>
     
-   <form action="${pageContext.request.contextPath}/Member/ClientInfo/add" method="post" onsubmit="return submitForm(this)">
+   <form action="${pageContext.request.contextPath}/Member/ClientInfo/update" method="post" onsubmit="return submitForm(this)">
     <div class="formbody">
     <div class="formtitle"><span>客户基本信息</span></div>
     
