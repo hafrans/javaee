@@ -38,8 +38,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <span></span> 
 	    <div class="loginbox">
 		    <ul>
-		    <li><input id="username" name="username" type="text" class="loginuser" value="admin" onclick="JavaScript:this.value=''"/></li>
-		    <li><input id="password" name="password" type="text" class="loginpwd" value="密码" onclick="JavaScript:this.value=''"/></li>
+		    <li><input id="username" name="username" type="text" class="loginuser" value="${cookie.usr.value }" onclick="JavaScript:this.value=''"/></li>
+		    <li><input id="password" name="password" type="text" class="loginpwd" value="${cookie.pwd.value }" onclick="JavaScript:this.value=''"/></li>
 		    <li><input name="" type="button" class="loginbtn" value="登录"  onclick="login()"  /><label><input name="" type="checkbox" value="" checked="checked" />记住密码</label></li>
 		    </ul>
 	    </div>

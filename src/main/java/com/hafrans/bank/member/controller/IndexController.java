@@ -1,6 +1,8 @@
 package com.hafrans.bank.member.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -47,7 +49,7 @@ public class IndexController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGet(String action,HttpSession session) {
 		
-		if("logout".contentEquals(action)){
+		if("logout".equals(action)){
 			session.invalidate();//退出登陆
 		}
 		
@@ -57,9 +59,9 @@ public class IndexController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public LoginResultVO loginPost(@RequestParam("username") String usr, @RequestParam("password") String psw,
-			Model model, HttpServletRequest res) {
-
-		switch (ycMemberService.checkLogin(usr, psw)) {
+			Model model, HttpServletRequest res,HttpServletResponse resp) {
+			
+		switch (ycMemberService.checkLogin(usr, psw)) { //登陆状态判定
 		case -2:
 			return new LoginResultVO(-2, "用户不存在", "");
 		case -1:
@@ -70,6 +72,13 @@ public class IndexController {
 			// 添加登陆信息
 			model.addAttribute(SessionConstraints.LOGIN_ENTITY, ycMemberMapper.findByName(usr));
 			model.addAttribute(SessionConstraints.LOGIN_STATUS, true);
+			//记住密码
+			Cookie cookieu = new Cookie("usr", usr);
+			Cookie cookiep = new Cookie("pwd", psw);
+			cookieu.setMaxAge(86400);
+			cookiep.setMaxAge(86400);
+			resp.addCookie(cookieu);
+			resp.addCookie(cookiep);
 			return new LoginResultVO(1, "登陆成功", res.getContextPath() + "/Member/index");
 		case 2:
 			return new LoginResultVO(1, "登陆成功", res.getContextPath() + "/Member/index");
