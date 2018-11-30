@@ -3,8 +3,10 @@ package com.hafrans.bank.member.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.dao.DataIntegrityViolationException;
 
 /*
@@ -79,7 +81,8 @@ public class ClientInfoController {
 		model.addAttribute("current", info.getPageNum());
 		model.addAttribute("max", info.getPages());
 		info.close();
-
+		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+		
 		return "member/clientinfo/index";
 	}
 

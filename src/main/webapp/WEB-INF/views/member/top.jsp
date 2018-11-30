@@ -34,7 +34,7 @@ $(function(){
     <ul>
     <li><span><img src="${pageContext.request.contextPath}/static/images/i07.png" title="论坛"  class="helpimg" height="16" width="16"/></span><a href="#">论坛</a></li>
     <li><span><img src="${pageContext.request.contextPath}/static/images/help.png" title="帮助"  class="helpimg"/></span><a href="#">帮助</a></li>
-    <li><span><img src="${pageContext.request.contextPath}/static/images/i10.png" title="注销"  class="helpimg" height="16" width="16"/></span><a href="login?action=logout" target="_parent">注销</a></li>
+    <li><span><img src="${pageContext.request.contextPath}/static/images/i10.png" title="注销"  class="helpimg" height="16" width="16"/></span><a href="${pageContext.request.contextPath}/Member/login?action=logout" target="_parent">注销</a></li>
     </ul>
      
     <div class="user">

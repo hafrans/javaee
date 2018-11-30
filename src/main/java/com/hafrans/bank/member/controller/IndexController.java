@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.hafrans.bank.member.beans.vo.LoginResultVO;
 import com.hafrans.bank.member.mapper.YcMemberMapper;
@@ -47,10 +48,13 @@ public class IndexController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginGet(String action,HttpSession session) {
+	public String loginGet(String action,HttpSession session,SessionStatus status) {
 		
 		if("logout".equals(action)){
+			session.removeAttribute(SessionConstraints.LOGIN_ENTITY);
 			session.invalidate();//退出登陆
+			status.setComplete();
+			System.out.println("Logout...");
 		}
 		
 		return "member/login";
